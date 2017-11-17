@@ -4,17 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 
-public class Mainmenu extends Activity implements OnClickListener{
+public class Level_1  extends Activity implements OnClickListener{
 
-    //define button as an object
-    private Button button_start;
-    //private Button button_options;
-
+    private ImageButton button_pause;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +24,11 @@ public class Mainmenu extends Activity implements OnClickListener{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // this is using layout
-        setContentView(R.layout.mainmenu);
+        setContentView(R.layout.level_1);
 
         // set listener to button
-        button_start = (Button)findViewById(R.id.btn_start);
-        button_start.setOnClickListener(this);
-        //button_options = (Button)findViewById(R.id.btn_options);
-        //button_options.setOnClickListener(this);
+        button_pause = (ImageButton)findViewById(R.id.btn_pause);
+        button_pause.setOnClickListener(this);
 
     }
     @Override
@@ -42,10 +38,10 @@ public class Mainmenu extends Activity implements OnClickListener{
         //Intent = action to be performed
         Intent intent = new Intent();
 
-        if(v == button_start)
-        {
-            intent.setClass(this, Level_1.class);
-        }
+       if(v == button_pause)
+       {
+           intent.setClass(this, Mainmenu.class);
+       }
 
         // After create relevant classes then uncomment these
         //else if(v == button_options)

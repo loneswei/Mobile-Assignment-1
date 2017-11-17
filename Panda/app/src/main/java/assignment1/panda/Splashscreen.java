@@ -58,9 +58,12 @@ public class Splashscreen extends Activity {
         splashThread.start();
     }
 
+
+    // Checking if there is any tap on screen during splash screen
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
+        // If there is tap action, set _active to false so as to move to next activity(Main menu)
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
             _active = false;

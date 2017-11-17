@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Panda</string>
+    <!--Splash screen string-->
+    <string name="Splash">This is a splash screen</string>
+
+    <!--Main menu strings-->
+    <string name="Panda">Panda</string>
+    <string name="Play">Play</string>
+
+    <!--Level 1 strings-->
+    <string name="Level_1">Level_1</string>
+
 </resources>
