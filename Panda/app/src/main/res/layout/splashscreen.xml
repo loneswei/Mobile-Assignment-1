@@ -4,17 +4,6 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="horizontal"
-    android:background="@mipmap/testingiconbackground">
-
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_marginTop="250dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="163464J, 160448A"
-        android:textSize="20sp"
-        android:textColor="@color/TextColor_DarkGreen" />
+    android:background="@mipmap/splashscreen_background">
 
 </RelativeLayout>

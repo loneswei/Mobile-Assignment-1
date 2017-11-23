@@ -6,43 +6,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-
+    android:background="@mipmap/mainmenu_background"
     tools:context="assignment1.panda.Mainmenu">
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Panda"
-        android:textSize="40sp"
-
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
 
     <Button
         android:id="@+id/btn_start"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:background="@color/DarkGreen"
+        android:textColor="@color/White"
         android:text="@string/Play"
 
-        android:layout_marginStart="70dp"
-        android:layout_marginBottom="100dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginStart="55dp"
+        android:layout_marginBottom="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btn_option"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@color/DarkGreen"
+        android:textColor="@color/White"
+        android:text="@string/Option"
+
+        android:layout_alignBaseline="@+id/btn_start"
+        android:layout_alignBottom="@+id/btn_start"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/btn_quit"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:background="@color/DarkGreen"
+        android:textColor="@color/White"
         android:text="@string/Quit"
 
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="100dp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginEnd="57dp"
+        android:layout_alignBaseline="@+id/btn_start"
+        android:layout_alignBottom="@+id/btn_start"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="splashScreenBackground">#ffffff</color>
-    <color name="TextColor_DarkGreen">#457b6c</color>
+    <color name="White">#ffffff</color>
+    <color name="DarkGreen">#457b6c</color>
 </resources>
