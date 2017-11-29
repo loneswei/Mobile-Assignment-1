@@ -44,7 +44,7 @@ public class Mainmenu extends Activity implements OnClickListener{
 
         if(v == button_start)
         {
-            intent.setClass(this, Level_1.class);
+            intent.setClass(this, Game.class);
         }
         // After create relevant classes then uncomment these
         else if(v == button_option)
