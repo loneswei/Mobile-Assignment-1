@@ -14,7 +14,6 @@ public class Mainmenu extends Activity implements OnClickListener{
     //define button as an object
     private Button button_start;
     private Button button_option;
-    private Button button_quit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +33,6 @@ public class Mainmenu extends Activity implements OnClickListener{
         button_start.setOnClickListener(this);
         button_option = (Button)findViewById(R.id.btn_option);
         button_option.setOnClickListener(this);
-        button_quit = (Button)findViewById(R.id.btn_quit);
-        button_quit.setOnClickListener(this);
 
     }
     @Override
@@ -48,13 +45,6 @@ public class Mainmenu extends Activity implements OnClickListener{
         if(v == button_start)
         {
             intent.setClass(this, Level_1.class);
-        }
-        else if(v == button_quit)
-        {
-            //super.onStop();
-            //android.os.Process.killProcess();
-            //System.exit(1);
-            //super.finish();
         }
         // After create relevant classes then uncomment these
         else if(v == button_option)

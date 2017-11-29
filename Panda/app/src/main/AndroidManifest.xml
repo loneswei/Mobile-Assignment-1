@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Splashscreen">
+        <activity android:name=".Splashscreen"
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +20,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Mainmenu">
+        <activity android:name=".Mainmenu"
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +29,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Option">
+        <activity android:name=".Option"
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +38,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Level_1">
+        <activity android:name=".Level_1"
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

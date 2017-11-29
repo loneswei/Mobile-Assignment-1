@@ -1,6 +1,5 @@
 package assignment1.panda;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
