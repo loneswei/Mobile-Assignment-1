@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
-public class SampleBackground implements EntityBase
+public class GameBackground implements EntityBase
 {
     private Bitmap bmp = null;
     private boolean isDone = false;
@@ -27,7 +27,7 @@ public class SampleBackground implements EntityBase
     }
 
     @Override
-    public void Update(float _dt) { offset += _dt * 0.1f; }
+    public void Update(float _dt) {}
 
     @Override
     public void Render(Canvas _canvas)
@@ -35,14 +35,12 @@ public class SampleBackground implements EntityBase
         xPos = 0.5f * view.getWidth();
         yPos = 0.5f * view.getHeight();
 
-        float xOffset = (float)Math.sin(offset) * bmp.getWidth() * 0.3f;
-
-        _canvas.drawBitmap(bmp,xPos - bmp.getWidth() * 0.5f + xOffset, yPos - bmp.getHeight() * 0.5f, null);
+        _canvas.drawBitmap(bmp,xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null);
     }
 
-    public static SampleBackground Create()
+    public static GameBackground Create()
     {
-        SampleBackground result = new SampleBackground();
+        GameBackground result = new GameBackground();
         EntityManager.Instance.AddEntity(result);
         return result;
     }

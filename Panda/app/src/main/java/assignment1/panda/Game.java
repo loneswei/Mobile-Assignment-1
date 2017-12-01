@@ -1,34 +1,48 @@
 package assignment1.panda;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.Window;
-import android.view.WindowManager;
+import android.graphics.Canvas;
+import android.view.SurfaceView;
 
-public class Game extends Activity
+import java.util.Random;
+
+public class Game
 {
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+    public final static Game Instance = new Game();
+    private float timer = 0.0f;
+
+    private Game() {}
+    public void Init(SurfaceView _view)
     {
-        super.onCreate(savedInstanceState);
-
-        // Hide Title
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        // Hide Top Bar
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(new GameView(this));
+        EntityManager.Instance.Init(_view);
+        GameBackground.Create();
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event)
+    public void Update(float _dt)
     {
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-
-        TouchManager.Instance.Update(x, y, event.getAction());
-        return true;
+        timer += _dt;
+        if(timer > 1.0f)
+        {
+            Random ranGen = new Random();
+            int rubbishType = ranGen.nextInt(4) + 1;
+            switch(rubbishType)
+            {
+                case 1:
+                    RubbishEntity.Create("Paper");
+                    break;
+                case 2:
+                    RubbishEntity.Create("Glass");
+                    break;
+                case 3:
+                    RubbishEntity.Create("Metal");
+                    break;
+                case 4:
+                    RubbishEntity.Create("Organic");
+                    break;
+            }
+            timer = 0.0f;
+        }
+        EntityManager.Instance.Update(_dt);
     }
+
+    public void Render(Canvas _canvas) { EntityManager.Instance.Render(_canvas); }
 }

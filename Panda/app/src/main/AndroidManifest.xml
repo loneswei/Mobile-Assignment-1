@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Game"
+        <activity android:name=".GameActivity"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

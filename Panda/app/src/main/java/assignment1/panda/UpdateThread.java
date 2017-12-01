@@ -15,7 +15,7 @@ public class UpdateThread extends Thread
     {
         view = _view;
         holder = _view.getHolder();
-        SampleGame.Instance.Init(_view);
+        Game.Instance.Init(_view);
     }
 
     public boolean isRunning() { return isRunning; }
@@ -35,7 +35,7 @@ public class UpdateThread extends Thread
             long currTime = System.nanoTime();
             float dt = (float)((currTime - prevTime) / 1000000000.0f);
             prevTime = currTime;
-            SampleGame.Instance.Update(dt);
+            Game.Instance.Update(dt);
 
             // Render
             Canvas canvas = holder.lockCanvas(null);
@@ -44,7 +44,7 @@ public class UpdateThread extends Thread
                 synchronized (holder)
                 {
                     canvas.drawColor(Color.BLACK);
-                    SampleGame.Instance.Render(canvas);
+                    Game.Instance.Render(canvas);
                 }
                 holder.unlockCanvasAndPost(canvas);
             }
