@@ -4,6 +4,6 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="horizontal"
-    android:background="@mipmap/splashscreen_background">
+    android:background="@drawable/splashscreen_background">
 
 </RelativeLayout>

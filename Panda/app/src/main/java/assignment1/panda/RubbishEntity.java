@@ -31,7 +31,7 @@ public class RubbishEntity implements EntityBase, Collidable
     @Override
     public void onHit(Collidable _other)
     {
-        if(_other.getType() == "RubbishEntity")
+        if(_other.getType() == "PaperBin")
             setIsDone(true);
     }
 
@@ -47,9 +47,9 @@ public class RubbishEntity implements EntityBase, Collidable
     {
         // Check for 4 different rubbish type and assign respective image to bmp
         if(this.getType() == "Paper")
-            bmp = BitmapFactory.decodeResource(_view.getResources(),R.mipmap.ic_launcher_round);
+            bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.ic_launcher_round);
         else
-            bmp = BitmapFactory.decodeResource(_view.getResources(),R.mipmap.ic_shortcut_icon_recyclingbin);
+            bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.ic_shortcut_icon_recyclingbin);
 
         lifeTime = 30.0f;
         xPos = 600.0f;
@@ -71,16 +71,16 @@ public class RubbishEntity implements EntityBase, Collidable
         if(yPos <= 400.0f)
             yPos += yDir * _dt;
         // Second movement : LEFT
-        else if(yPos > 400.0f && yPos <= 800.0f && xPos >= 100.0f)
+        else if(yPos > 400.0f && yPos <= 700.0f && xPos >= 100.0f)
         {
             xDir = 300.0f;
             xPos -= xDir * _dt;
         }
         // Third movement : DOWN
-        else if(xPos < 100.0f && yPos <= 800.0f)
+        else if(xPos < 100.0f && yPos <= 700.0f)
             yPos += yDir * _dt;
         // Fourth movement : RIGHT
-        else if(yPos > 800.0f && xPos <= 800.0f)
+        else if(yPos > 700.0f && xPos <= 800.0f)
             xPos += xDir * _dt;
         // Fifth movement : DOWN - Reach bin at xPos > 800.0f && yPos > 800.0f
         else if(xPos > 800.0f && yPos <= bottomYPos)
