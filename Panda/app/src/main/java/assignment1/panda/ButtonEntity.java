@@ -42,6 +42,7 @@ public class ButtonEntity implements EntityBase, Collidable
     public void Init(SurfaceView _view)
     {
         // Check for 4 different rubbish type and assign respective image to bmp
+        xPos = 1700.0f;
         if(this.getType() == "Paper")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
@@ -62,7 +63,13 @@ public class ButtonEntity implements EntityBase, Collidable
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
             yPos = 900.0f;
         }
-        xPos = 1700.0f;
+        else if(this.getType() == "Back")
+        {
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
+            xPos = 40.0f;
+            yPos = 30.0f;
+        }
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package assignment1.panda;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,6 +16,7 @@ public class Game
     private Bitmap bmpPlasticBin = null;
     private Bitmap bmpMetalBin = null;
     private Bitmap bmpOthersBin = null;
+    //private Bitmap bmpBack = null;
 
     private Game() {}
     public void Init(SurfaceView _view)
@@ -25,10 +27,12 @@ public class Game
         ButtonEntity.Create("Plastic");
         ButtonEntity.Create("Metal");
         ButtonEntity.Create("Others");
+        ButtonEntity.Create("Back");
         bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
         bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
         bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
         bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
+        //bmpBack = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
     }
 
     public void Update(float _dt)
@@ -63,6 +67,7 @@ public class Game
             float imgRadius2 = bmpPlasticBin.getHeight() * 0.5f;
             float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
             float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
+           // float imgRadius5 = bmpBack.getHeight() * 0.5f;
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 300.0f, imgRadius))
             {
                 // Create bin
@@ -83,6 +88,11 @@ public class Game
                 // Create bin
                 BinEntity.Create("OthersBin");
             }
+            //else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 40.0f, 30.0f, imgRadius5))
+            //{
+                //Intent intent = new Intent();
+                //intent.setClass(this,LevelSelect.class)
+            //}
         }
         EntityManager.Instance.Update(_dt);
     }
