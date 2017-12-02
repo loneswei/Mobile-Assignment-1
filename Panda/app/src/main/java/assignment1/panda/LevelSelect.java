@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 
-public class Mainmenu extends Activity implements OnClickListener{
+public class LevelSelect extends Activity implements View.OnClickListener {
 
     //define button as an object
-    private Button button_start;
-    private Button button_option;
+    private Button button_level05;
+    private ImageButton button_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +26,13 @@ public class Mainmenu extends Activity implements OnClickListener{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // this is using layout
-        setContentView(R.layout.mainmenu);
+        setContentView(R.layout.levelselect);
 
         // set listener to button
-        button_start = (Button)findViewById(R.id.btn_start);
-        button_start.setOnClickListener(this);
-        button_option = (Button)findViewById(R.id.btn_option);
-        button_option.setOnClickListener(this);
+        button_level05 = (Button)findViewById(R.id.btn_level05);
+        button_level05.setOnClickListener(this);
+        button_back = (ImageButton)findViewById(R.id.btn_back);
+        button_back.setOnClickListener(this);
 
     }
     @Override
@@ -42,14 +42,13 @@ public class Mainmenu extends Activity implements OnClickListener{
         //Intent = action to be performed
         Intent intent = new Intent();
 
-        if(v == button_start)
+        if(v == button_level05)
         {
-            intent.setClass(this, LevelSelect.class);
+            intent.setClass(this, GameActivity.class);
         }
-        // After create relevant classes then uncomment these
-        else if(v == button_option)
+        else if(v == button_back)
         {
-            intent.setClass(this, Option.class);
+            intent.setClass(this, Mainmenu.class);
         }
 
         startActivity(intent);
