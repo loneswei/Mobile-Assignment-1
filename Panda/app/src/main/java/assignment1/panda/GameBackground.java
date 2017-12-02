@@ -10,7 +10,7 @@ public class GameBackground implements EntityBase
     private Bitmap bmp = null;
     private boolean isDone = false;
     private SurfaceView view = null;
-    private float xPos, yPos, offset;
+    private float xPos, yPos;
 
     @Override
     public boolean isDone() { return isDone; }
@@ -23,7 +23,6 @@ public class GameBackground implements EntityBase
     {
         view = _view;
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.gameplay);
-        offset = 0.0f;
     }
 
     @Override

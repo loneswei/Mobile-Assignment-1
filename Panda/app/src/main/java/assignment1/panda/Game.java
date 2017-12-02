@@ -38,8 +38,7 @@ public class Game
         if(timer > 1.0f)
         {
             Random ranGen = new Random();
-            //int rubbishType = ranGen.nextInt(4) + 1;
-            int rubbishType = 1;
+            int rubbishType = ranGen.nextInt(4) + 1;
             switch(rubbishType)
             {
                 case 1:
@@ -57,28 +56,29 @@ public class Game
             }
             timer = 0.0f;
         }
+
         if(TouchManager.Instance.isDown())
         {
             float imgRadius = bmpPaperBin.getHeight() * 0.5f;
+            float imgRadius2 = bmpPlasticBin.getHeight() * 0.5f;
+            float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
+            float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 300.0f, imgRadius))
             {
                 // Create bin
                 BinEntity.Create("PaperBin");
             }
-            float imgRadius2 = bmpPlasticBin.getHeight() * 0.5f;
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 500.0f, imgRadius2))
+            else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 500.0f, imgRadius2))
             {
                 // Create bin
                 BinEntity.Create("PlasticBin");
             }
-            float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 700.0f, imgRadius3))
+            else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 700.0f, imgRadius3))
             {
                 // Create bin
                 BinEntity.Create("MetalBin");
             }
-            float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 900.0f, imgRadius4))
+            else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 900.0f, imgRadius4))
             {
                 // Create bin
                 BinEntity.Create("OthersBin");

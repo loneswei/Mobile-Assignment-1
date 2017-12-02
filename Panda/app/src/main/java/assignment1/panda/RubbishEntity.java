@@ -118,8 +118,8 @@ public class RubbishEntity implements EntityBase, Collidable
         }
 
         lifeTime = 30.0f;
-        xPos = 600.0f;
-        yPos = 10.0f;
+        xPos = 750.0f;
+        yPos = 250.0f;
         xDir = 0.0f;
         yDir = 300.0f;
         bottomYPos = _view.getHeight();
@@ -134,22 +134,22 @@ public class RubbishEntity implements EntityBase, Collidable
 
         // Movement of Rubbishes
         // First movement : DOWN
-        if(yPos <= 400.0f)
+        if(yPos <= 300.0f)
             yPos += yDir * _dt;
         // Second movement : LEFT
-        else if(yPos > 400.0f && yPos <= 700.0f && xPos >= 100.0f)
+        else if(yPos > 300.0f && yPos <= 600.0f && xPos >= 100.0f)
         {
             xDir = 300.0f;
             xPos -= xDir * _dt;
         }
         // Third movement : DOWN
-        else if(xPos < 100.0f && yPos <= 700.0f)
+        else if(xPos < 100.0f && yPos <= 600.0f)
             yPos += yDir * _dt;
         // Fourth movement : RIGHT
-        else if(yPos > 700.0f && xPos <= 800.0f)
+        else if(yPos > 600.0f && xPos <= 850.0f)
             xPos += xDir * _dt;
         // Fifth movement : DOWN - Reach bin at xPos > 800.0f && yPos > 800.0f
-        else if(xPos > 800.0f && yPos <= bottomYPos)
+        else if(xPos > 850.0f && yPos <= bottomYPos)
             yPos += yDir * _dt;
     }
 

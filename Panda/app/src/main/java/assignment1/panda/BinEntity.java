@@ -31,11 +31,13 @@ public class BinEntity implements EntityBase, Collidable
     @Override
     public void onHit(Collidable _other)
     {
+        EntityBase otherEntity = (EntityBase) _other;
         if(_other.getType() == "PaperBin" ||
                 _other.getType() == "PlasticBin" ||
                 _other.getType() == "MetalBin" ||
                 _other.getType() == "OthersBin")
-            setIsDone(true);
+            otherEntity.setIsDone(true);
+        this.setIsDone(false);
     }
 
     // EntityBase interface
@@ -57,7 +59,7 @@ public class BinEntity implements EntityBase, Collidable
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
         else if(this.getType() == "OthersBin")
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
-        xPos = 800.0f;
+        xPos = 850.0f;
         yPos = 1000.0f;
     }
 
