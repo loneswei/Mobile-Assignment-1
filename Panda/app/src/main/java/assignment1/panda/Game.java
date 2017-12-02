@@ -11,8 +11,10 @@ public class Game
 {
     public final static Game Instance = new Game();
     private float timer = 0.0f;
-    private Bitmap bmp = null;
-    private Bitmap bmp2 = null;
+    private Bitmap bmpPaperBin = null;
+    private Bitmap bmpPlasticBin = null;
+    private Bitmap bmpMetalBin = null;
+    private Bitmap bmpOthersBin = null;
 
     private Game() {}
     public void Init(SurfaceView _view)
@@ -20,9 +22,13 @@ public class Game
         EntityManager.Instance.Init(_view);
         GameBackground.Create();
         ButtonEntity.Create("Paper");
-        ButtonEntity.Create("Glass");
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ic_launcher);
-        bmp2 = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ic_shortcut_icon_recyclingbin);
+        ButtonEntity.Create("Plastic");
+        ButtonEntity.Create("Metal");
+        ButtonEntity.Create("Others");
+        bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
+        bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
+        bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
+        bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
     }
 
     public void Update(float _dt)
@@ -32,37 +38,50 @@ public class Game
         if(timer > 1.0f)
         {
             Random ranGen = new Random();
-            int rubbishType = ranGen.nextInt(4) + 1;
+            //int rubbishType = ranGen.nextInt(4) + 1;
+            int rubbishType = 1;
             switch(rubbishType)
             {
                 case 1:
                     RubbishEntity.Create("Paper");
                     break;
                 case 2:
-                    RubbishEntity.Create("Glass");
+                    RubbishEntity.Create("Plastic");
                     break;
                 case 3:
                     RubbishEntity.Create("Metal");
                     break;
                 case 4:
-                    RubbishEntity.Create("Organic");
+                    RubbishEntity.Create("Others");
                     break;
             }
             timer = 0.0f;
         }
         if(TouchManager.Instance.isDown())
         {
-            float imgRadius = bmp.getHeight() * 0.5f;
+            float imgRadius = bmpPaperBin.getHeight() * 0.5f;
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 300.0f, imgRadius))
             {
                 // Create bin
                 BinEntity.Create("PaperBin");
             }
-            float imgRadius2 = bmp2.getHeight() * 0.5f;
+            float imgRadius2 = bmpPlasticBin.getHeight() * 0.5f;
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 500.0f, imgRadius2))
             {
                 // Create bin
-                BinEntity.Create("GlassBin");
+                BinEntity.Create("PlasticBin");
+            }
+            float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
+            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 700.0f, imgRadius3))
+            {
+                // Create bin
+                BinEntity.Create("MetalBin");
+            }
+            float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
+            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 900.0f, imgRadius4))
+            {
+                // Create bin
+                BinEntity.Create("OthersBin");
             }
         }
         EntityManager.Instance.Update(_dt);

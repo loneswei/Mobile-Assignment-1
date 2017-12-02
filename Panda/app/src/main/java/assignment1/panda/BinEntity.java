@@ -32,7 +32,9 @@ public class BinEntity implements EntityBase, Collidable
     public void onHit(Collidable _other)
     {
         if(_other.getType() == "PaperBin" ||
-                _other.getType() == "GlassBin")
+                _other.getType() == "PlasticBin" ||
+                _other.getType() == "MetalBin" ||
+                _other.getType() == "OthersBin")
             setIsDone(true);
     }
 
@@ -48,9 +50,13 @@ public class BinEntity implements EntityBase, Collidable
     {
         // Check for 4 different rubbish type and assign respective image to bmp
         if(this.getType() == "PaperBin")
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ic_launcher);
-        else
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.ic_shortcut_icon_recyclingbin);
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
+        else if(this.getType() == "PlasticBin")
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
+        else if(this.getType() == "MetalBin")
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
+        else if(this.getType() == "OthersBin")
+            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
         xPos = 800.0f;
         yPos = 1000.0f;
     }

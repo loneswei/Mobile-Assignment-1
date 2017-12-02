@@ -22,7 +22,7 @@ public class GameBackground implements EntityBase
     public void Init(SurfaceView _view)
     {
         view = _view;
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.option_background);
+        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.gameplay);
         offset = 0.0f;
     }
 

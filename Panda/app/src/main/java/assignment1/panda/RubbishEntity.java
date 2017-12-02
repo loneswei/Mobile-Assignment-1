@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
+import java.util.Random;
+
 public class RubbishEntity implements EntityBase, Collidable
 {
     private Bitmap bmp = null;
@@ -31,7 +33,10 @@ public class RubbishEntity implements EntityBase, Collidable
     @Override
     public void onHit(Collidable _other)
     {
-        if(_other.getType() == "PaperBin")
+        if((this.getType() == "Paper" && _other.getType() == "PaperBin") ||
+                (this.getType() == "Plastic" && _other.getType() == "PlasticBin") ||
+                (this.getType() == "Metal" && _other.getType() == "MetalBin") ||
+                (this.getType() == "Others" && _other.getType() == "OthersBin"))
             setIsDone(true);
     }
 
@@ -45,11 +50,72 @@ public class RubbishEntity implements EntityBase, Collidable
     @Override
     public void Init(SurfaceView _view)
     {
+        Random ranGen = new Random();
         // Check for 4 different rubbish type and assign respective image to bmp
         if(this.getType() == "Paper")
-            bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.ic_launcher_round);
-        else
-            bmp = BitmapFactory.decodeResource(_view.getResources(),R.drawable.ic_shortcut_icon_recyclingbin);
+        {
+            int random = ranGen.nextInt(3) + 1;
+            switch(random)
+            {
+                case 1:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.crumpled_paper);
+                    break;
+                case 2:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.newspaper);
+                    break;
+                case 3:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.milk_carton);
+                    break;
+            }
+        }
+        else if(this.getType() == "Plastic")
+        {
+            int random = ranGen.nextInt(3) + 1;
+            switch(random)
+            {
+                case 1:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_bag);
+                    break;
+                case 2:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_bottle);
+                    break;
+                case 3:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_spray_bottle);
+                    break;
+            }
+        }
+        else if(this.getType() == "Metal")
+        {
+            int random = ranGen.nextInt(3) + 1;
+            switch(random)
+            {
+                case 1:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_drink_can);
+                    break;
+                case 2:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_food_can);
+                    break;
+                case 3:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_spray_can);
+                    break;
+            }
+        }
+        else if(this.getType() == "Others")
+        {
+            int random = ranGen.nextInt(3) + 1;
+            switch(random)
+            {
+                case 1:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.banana_peel);
+                    break;
+                case 2:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.eaten_apple);
+                    break;
+                case 3:
+                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.toothbrush);
+                    break;
+            }
+        }
 
         lifeTime = 30.0f;
         xPos = 600.0f;
