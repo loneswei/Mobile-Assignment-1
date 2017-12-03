@@ -16,23 +16,23 @@ public class Game
     private Bitmap bmpPlasticBin = null;
     private Bitmap bmpMetalBin = null;
     private Bitmap bmpOthersBin = null;
-    //private Bitmap bmpBack = null;
+    private Bitmap bmpBack = null;
 
     private Game() {}
     public void Init(SurfaceView _view)
     {
         EntityManager.Instance.Init(_view);
-        GameBackground.Create();
-        ButtonEntity.Create("Paper");
-        ButtonEntity.Create("Plastic");
-        ButtonEntity.Create("Metal");
-        ButtonEntity.Create("Others");
-        ButtonEntity.Create("Back");
+        GameBackground.Create("BackGround");
+        ButtonEntity.Create("PaperButton");
+        ButtonEntity.Create("PlasticButton");
+        ButtonEntity.Create("MetalButton");
+        ButtonEntity.Create("OthersButton");
+        ButtonEntity.Create("BackButton");
         bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
         bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
         bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
         bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
-        //bmpBack = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
+        bmpBack = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
     }
 
     public void Update(float _dt)

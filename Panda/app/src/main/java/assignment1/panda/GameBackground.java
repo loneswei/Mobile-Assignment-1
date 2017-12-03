@@ -11,12 +11,19 @@ public class GameBackground implements EntityBase
     private boolean isDone = false;
     private SurfaceView view = null;
     private float xPos, yPos;
+    private String Type;
 
     @Override
     public boolean isDone() { return isDone; }
 
     @Override
     public void setIsDone(boolean _isDone) { isDone = _isDone; }
+
+    @Override
+    public String getType() { return Type; }
+
+    @Override
+    public void setType(String _Type) { Type = _Type; }
 
     @Override
     public void Init(SurfaceView _view)
@@ -37,9 +44,10 @@ public class GameBackground implements EntityBase
         _canvas.drawBitmap(bmp,xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null);
     }
 
-    public static GameBackground Create()
+    public static GameBackground Create(String _Type)
     {
         GameBackground result = new GameBackground();
+        result.setType(_Type);
         EntityManager.Instance.AddEntity(result);
         return result;
     }

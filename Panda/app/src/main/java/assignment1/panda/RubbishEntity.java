@@ -16,12 +16,6 @@ public class RubbishEntity implements EntityBase, Collidable
 
     // Collidable interface
     @Override
-    public String getType() { return Type; }
-
-    @Override
-    public void setType(String _Type) { Type = _Type; }
-
-    @Override
     public float getPosX() { return xPos; }
 
     @Override
@@ -33,11 +27,23 @@ public class RubbishEntity implements EntityBase, Collidable
     @Override
     public void onHit(Collidable _other)
     {
-        if((this.getType() == "Paper" && _other.getType() == "PaperBin") ||
-                (this.getType() == "Plastic" && _other.getType() == "PlasticBin") ||
-                (this.getType() == "Metal" && _other.getType() == "MetalBin") ||
-                (this.getType() == "Others" && _other.getType() == "OthersBin"))
+        EntityBase otherEntity = (EntityBase) _other;
+        if((this.getType() == "Paper" && otherEntity.getType() == "PaperBin") ||
+                (this.getType() == "Plastic" && otherEntity.getType() == "PlasticBin") ||
+                (this.getType() == "Metal" && otherEntity.getType() == "MetalBin") ||
+                (this.getType() == "Others" && otherEntity.getType() == "OthersBin"))
             setIsDone(true);
+        else
+        {
+            for(EntityBase currEntity : EntityManager.Instance.getEntityList())
+            {
+                if(currEntity.getType() == "BackButton")
+                {
+                    currEntity.setIsDone(true);
+                    break;
+                }
+            }
+        }
     }
 
     // EntityBase interface
@@ -46,6 +52,12 @@ public class RubbishEntity implements EntityBase, Collidable
 
     @Override
     public void setIsDone(boolean _isDone) { isDone = _isDone; }
+
+    @Override
+    public String getType() { return Type; }
+
+    @Override
+    public void setType(String _Type) { Type = _Type; }
 
     @Override
     public void Init(SurfaceView _view)

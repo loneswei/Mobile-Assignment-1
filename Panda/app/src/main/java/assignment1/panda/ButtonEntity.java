@@ -14,12 +14,6 @@ public class ButtonEntity implements EntityBase, Collidable
 
     // Collidable interface
     @Override
-    public String getType() { return Type; }
-
-    @Override
-    public void setType(String _Type) { Type = _Type; }
-
-    @Override
     public float getPosX() { return xPos; }
 
     @Override
@@ -39,37 +33,42 @@ public class ButtonEntity implements EntityBase, Collidable
     public void setIsDone(boolean _isDone) { isDone = _isDone; }
 
     @Override
+    public String getType() { return Type; }
+
+    @Override
+    public void setType(String _Type) { Type = _Type; }
+
+    @Override
     public void Init(SurfaceView _view)
     {
         // Check for 4 different rubbish type and assign respective image to bmp
         xPos = 1700.0f;
-        if(this.getType() == "Paper")
+        if(this.getType() == "PaperButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
             yPos = 300.0f;
         }
-        else if(this.getType() == "Plastic")
+        else if(this.getType() == "PlasticButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
             yPos = 500.0f;
         }
-        else if(this.getType() == "Metal")
+        else if(this.getType() == "MetalButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
             yPos = 700.0f;
         }
-        else if(this.getType() == "Others")
+        else if(this.getType() == "OthersButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
             yPos = 900.0f;
         }
-        else if(this.getType() == "Back")
+        else if(this.getType() == "BackButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
             xPos = 40.0f;
             yPos = 30.0f;
         }
-
     }
 
     @Override

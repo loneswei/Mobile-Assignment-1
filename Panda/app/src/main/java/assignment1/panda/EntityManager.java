@@ -81,4 +81,5 @@ public class EntityManager
         _newEntity.Init(view);
         entityList.add(_newEntity);
     }
+    public LinkedList<EntityBase> getEntityList() { return entityList; }
 }

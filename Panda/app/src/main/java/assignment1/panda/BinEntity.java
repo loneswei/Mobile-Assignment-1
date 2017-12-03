@@ -14,12 +14,6 @@ public class BinEntity implements EntityBase, Collidable
 
     // Collidable interface
     @Override
-    public String getType() { return Type; }
-
-    @Override
-    public void setType(String _Type) { Type = _Type; }
-
-    @Override
     public float getPosX() { return xPos; }
 
     @Override
@@ -32,10 +26,10 @@ public class BinEntity implements EntityBase, Collidable
     public void onHit(Collidable _other)
     {
         EntityBase otherEntity = (EntityBase) _other;
-        if(_other.getType() == "PaperBin" ||
-                _other.getType() == "PlasticBin" ||
-                _other.getType() == "MetalBin" ||
-                _other.getType() == "OthersBin")
+        if(otherEntity.getType() == "PaperBin" ||
+                otherEntity.getType() == "PlasticBin" ||
+                otherEntity.getType() == "MetalBin" ||
+                otherEntity.getType() == "OthersBin")
             otherEntity.setIsDone(true);
         this.setIsDone(false);
     }
@@ -46,6 +40,12 @@ public class BinEntity implements EntityBase, Collidable
 
     @Override
     public void setIsDone(boolean _isDone) { isDone = _isDone; }
+
+    @Override
+    public String getType() { return Type; }
+
+    @Override
+    public void setType(String _Type) { Type = _Type; }
 
     @Override
     public void Init(SurfaceView _view)

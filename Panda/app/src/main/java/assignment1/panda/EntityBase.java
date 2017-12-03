@@ -7,6 +7,8 @@ public interface EntityBase
 {
     boolean isDone();
     void setIsDone(boolean _isDone);
+    String getType();
+    void setType(String _Type);
 
     void Init(SurfaceView _view);
     void Update(float _dt);
