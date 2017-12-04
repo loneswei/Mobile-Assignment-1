@@ -38,8 +38,9 @@ public class GameActivity extends Activity
 
     public void switchScreen()
     {
+        EntityManager.Instance.getEntityList().clear();
+        finish();
         Intent intent = new Intent();
         intent.setClass(this, LevelSelect.class);
-        finish();
     }
 }

@@ -10,12 +10,12 @@
     tools:context="assignment1.panda.LevelSelect">
 
     <Button
-        android:id="@+id/btn_level05"
+        android:id="@+id/btn_level"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:background="@color/DarkGreen"
         android:textColor="@color/White"
-        android:text="Level 5"
+        android:text="Level"
 
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />

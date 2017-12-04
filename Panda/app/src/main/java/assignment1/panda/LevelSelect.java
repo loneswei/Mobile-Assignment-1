@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 public class LevelSelect extends Activity implements View.OnClickListener {
 
     //define button as an object
-    private Button button_level05;
+    private Button button_level;
     private ImageButton button_back;
 
     @Override
@@ -29,8 +29,8 @@ public class LevelSelect extends Activity implements View.OnClickListener {
         setContentView(R.layout.levelselect);
 
         // set listener to button
-        button_level05 = (Button)findViewById(R.id.btn_level05);
-        button_level05.setOnClickListener(this);
+        button_level = (Button)findViewById(R.id.btn_level);
+        button_level.setOnClickListener(this);
         button_back = (ImageButton)findViewById(R.id.btn_back);
         button_back.setOnClickListener(this);
 
@@ -42,7 +42,7 @@ public class LevelSelect extends Activity implements View.OnClickListener {
         //Intent = action to be performed
         Intent intent = new Intent();
 
-        if(v == button_level05)
+        if(v == button_level)
         {
             intent.setClass(this, GameActivity.class);
         }

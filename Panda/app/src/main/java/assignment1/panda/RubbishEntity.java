@@ -37,7 +37,7 @@ public class RubbishEntity implements EntityBase, Collidable
         {
             for(EntityBase currEntity : EntityManager.Instance.getEntityList())
             {
-                if(currEntity.getType() == "PaperButton")
+                if(currEntity.getType() == "Heart")
                 {
                     currEntity.setIsDone(true);
                     break;
