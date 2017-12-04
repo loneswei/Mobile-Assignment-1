@@ -17,6 +17,9 @@ public class Game
     private Bitmap bmpMetalBin = null;
     private Bitmap bmpOthersBin = null;
     private Bitmap bmpBack = null;
+    GameActivity gameActivity = null;
+
+    public void setGameActivity(GameActivity _gameActivity) { gameActivity = _gameActivity; }
 
     private Game() {}
     public void Init(SurfaceView _view)
@@ -67,7 +70,7 @@ public class Game
             float imgRadius2 = bmpPlasticBin.getHeight() * 0.5f;
             float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
             float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
-           // float imgRadius5 = bmpBack.getHeight() * 0.5f;
+            float imgRadius5 = bmpBack.getHeight() * 0.5f;
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 300.0f, imgRadius))
             {
                 // Create bin
@@ -88,11 +91,10 @@ public class Game
                 // Create bin
                 BinEntity.Create("OthersBin");
             }
-            //else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 40.0f, 30.0f, imgRadius5))
-            //{
-                //Intent intent = new Intent();
-                //intent.setClass(this,LevelSelect.class)
-            //}
+            else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
+            {
+                gameActivity.switchScreen();
+            }
         }
         EntityManager.Instance.Update(_dt);
     }

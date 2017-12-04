@@ -23,6 +23,7 @@ public class GameActivity extends Activity
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(new GameView(this));
+        Game.Instance.setGameActivity(this);
     }
 
     @Override
@@ -32,13 +33,13 @@ public class GameActivity extends Activity
         int y = (int) event.getY();
 
         TouchManager.Instance.Update(x, y, event.getAction());
-
-        // Back button in Game
-        if(Collision.sphereToSphere(x, y, 0.0f, 40.0f, 30.0f, 18.0f))
-        {
-            Intent intent = new Intent();
-            intent.setClass(this, LevelSelect.class);
-        }
         return true;
+    }
+
+    public void switchScreen()
+    {
+        Intent intent = new Intent();
+        intent.setClass(this, LevelSelect.class);
+        finish();
     }
 }

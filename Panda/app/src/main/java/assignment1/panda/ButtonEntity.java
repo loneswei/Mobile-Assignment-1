@@ -66,8 +66,8 @@ public class ButtonEntity implements EntityBase, Collidable
         else if(this.getType() == "BackButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
-            xPos = 40.0f;
-            yPos = 30.0f;
+            xPos = 45.0f;
+            yPos = 45.0f;
         }
     }
 
