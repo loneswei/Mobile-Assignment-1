@@ -31,6 +31,7 @@ public class Game
         ButtonEntity.Create("MetalButton");
         ButtonEntity.Create("OthersButton");
         ButtonEntity.Create("BackButton");
+        PlayerHealth.Create("Heart");
         bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
         bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
         bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
