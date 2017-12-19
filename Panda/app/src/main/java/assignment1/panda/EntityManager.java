@@ -3,6 +3,8 @@ package assignment1.panda;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class EntityManager
@@ -21,6 +23,9 @@ public class EntityManager
         //Update
         for(EntityBase currEntity : entityList)
         {
+            if(!currEntity.isInit())
+                currEntity.Init(view);
+
             currEntity.Update(_dt);
 
             if(currEntity.isDone())
@@ -72,6 +77,11 @@ public class EntityManager
 
     public void Render(Canvas _canvas)
     {
+        Collections.sort(entityList, new Comparator<EntityBase>()
+        {
+            @Override
+            public int compare(EntityBase o1, EntityBase o2) { return o1.getRenderLayer() - o2.getRenderLayer(); }
+        });
         for(EntityBase currEntity : entityList)
             currEntity.Render(_canvas);
     }

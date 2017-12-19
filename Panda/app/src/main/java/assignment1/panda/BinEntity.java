@@ -9,6 +9,7 @@ public class BinEntity implements EntityBase, Collidable
 {
     private Bitmap bmp = null;
     private boolean isDone = false;
+    private boolean isInit = false;
     private float xPos, yPos;
     private String Type;
 
@@ -36,6 +37,15 @@ public class BinEntity implements EntityBase, Collidable
 
     // EntityBase interface
     @Override
+    public boolean isInit() { return isInit; }
+
+    @Override
+    public int getRenderLayer() { return LayerConstants.GAMEOBJECTS_LAYER; }
+
+    @Override
+    public void setRenderLayer(int _newLayer) {}
+
+    @Override
     public boolean isDone() { return isDone; }
 
     @Override
@@ -61,6 +71,8 @@ public class BinEntity implements EntityBase, Collidable
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
         xPos = 850.0f;
         yPos = 1000.0f;
+
+        isInit = true;
     }
 
     @Override

@@ -9,6 +9,7 @@ public class ButtonEntity implements EntityBase, Collidable
 {
     private Bitmap bmp = null;
     private boolean isDone = false;
+    private boolean isInit = false;
     private float xPos, yPos;
     private String Type;
 
@@ -26,6 +27,15 @@ public class ButtonEntity implements EntityBase, Collidable
     public void onHit(Collidable _other) {}
 
     // EntityBase interface
+    @Override
+    public boolean isInit() { return isInit; }
+
+    @Override
+    public int getRenderLayer() { return LayerConstants.UI_LAYER; }
+
+    @Override
+    public void setRenderLayer(int _newLayer) {}
+
     @Override
     public boolean isDone() { return isDone; }
 
@@ -69,6 +79,8 @@ public class ButtonEntity implements EntityBase, Collidable
             xPos = 45.0f;
             yPos = 45.0f;
         }
+
+        isInit = true;
     }
 
     @Override

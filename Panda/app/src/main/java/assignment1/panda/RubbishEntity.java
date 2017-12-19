@@ -11,6 +11,7 @@ public class RubbishEntity implements EntityBase, Collidable
 {
     private Bitmap bmp = null;
     private boolean isDone = false;
+    private boolean isInit = false;
     private float xPos, yPos, xDir, yDir, lifeTime, bottomYPos;
     private String Type;
 
@@ -47,6 +48,15 @@ public class RubbishEntity implements EntityBase, Collidable
     }
 
     // EntityBase interface
+    @Override
+    public boolean isInit() { return isInit; }
+
+    @Override
+    public int getRenderLayer() { return LayerConstants.GAMEOBJECTS_LAYER; }
+
+    @Override
+    public void setRenderLayer(int _newLayer) {}
+
     @Override
     public boolean isDone() { return isDone; }
 
@@ -135,11 +145,14 @@ public class RubbishEntity implements EntityBase, Collidable
         xDir = 0.0f;
         yDir = 300.0f;
         bottomYPos = _view.getHeight();
+        isInit = true;
     }
 
     @Override
     public void Update(float _dt)
     {
+        if(Game.Instance.getIsPaused())
+            return;
         lifeTime -= _dt;
         if(lifeTime < 0.0f)
             setIsDone(true);

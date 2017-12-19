@@ -10,34 +10,33 @@ public class PlayerHealth implements EntityBase
 {
     private Bitmap bmp = null;
     private boolean isDone = false;
+    private boolean isInit = false;
     private boolean canRemove = false;
     private SurfaceView view = null;
     private float xPos, yPos;
     private String Type;
 
-    @Override
-    public boolean isDone()
-    {
-        return isDone;
-    }
 
     @Override
-    public void setIsDone(boolean _isDone)
-    {
-        isDone = _isDone;
-    }
+    public boolean isInit() { return isInit; }
 
     @Override
-    public String getType()
-    {
-        return Type;
-    }
+    public int getRenderLayer() { return LayerConstants.UI_LAYER; }
 
     @Override
-    public void setType(String _Type)
-    {
-        Type = _Type;
-    }
+    public void setRenderLayer(int _newLayer) {}
+
+    @Override
+    public boolean isDone() { return isDone; }
+
+    @Override
+    public void setIsDone(boolean _isDone) { isDone = _isDone; }
+
+    @Override
+    public String getType() { return Type; }
+
+    @Override
+    public void setType(String _Type) { Type = _Type; }
 
     @Override
     public void Init(SurfaceView _view)
@@ -48,13 +47,11 @@ public class PlayerHealth implements EntityBase
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.life_heart_icon);
         }
+        isInit = true;
     }
 
     @Override
-    public void Update(float _dt)
-    {
-
-    }
+    public void Update(float _dt) {}
 
     @Override
     public void Render(Canvas _canvas)

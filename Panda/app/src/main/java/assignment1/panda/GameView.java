@@ -28,10 +28,7 @@ public class GameView extends SurfaceView
                 }
 
                 @Override
-                public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
-                {
-
-                }
+                public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
 
                 @Override
                 public void surfaceDestroyed(SurfaceHolder holder) { updateThread.Terminate(); }

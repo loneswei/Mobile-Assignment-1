@@ -7,16 +7,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.view.View.OnClickListener;
 
-public class Mainmenu extends Activity implements OnClickListener{
-
-    //define button as an object
+public class Mainmenu extends Activity implements View.OnClickListener
+{
     private Button button_start;
     private Button button_option;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         // hide title
@@ -33,7 +32,6 @@ public class Mainmenu extends Activity implements OnClickListener{
         button_start.setOnClickListener(this);
         button_option = (Button)findViewById(R.id.btn_option);
         button_option.setOnClickListener(this);
-
     }
     @Override
     //invoke a callback on clicked event on a view
@@ -43,15 +41,10 @@ public class Mainmenu extends Activity implements OnClickListener{
         Intent intent = new Intent();
 
         if(v == button_start)
-        {
             intent.setClass(this, LevelSelect.class);
-        }
         // After create relevant classes then uncomment these
         else if(v == button_option)
-        {
             intent.setClass(this, Option.class);
-        }
-
         startActivity(intent);
     }
 }
