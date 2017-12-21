@@ -24,6 +24,8 @@ public class Game
     private Vibrator vibrator;
     private boolean isPause = false;
 
+    //private SpriteAnimation spr = null;
+
     public void setGameActivity(GameActivity _gameActivity) { gameActivity = _gameActivity; }
 
     private Game() {}
@@ -54,6 +56,12 @@ public class Game
         I do not remember if I did copied down everything about audio during lab, you might have to check against the lab video.
          */
         //AudioManager.Instance.PlayAudio(R.raw.bgm);
+
+        /*
+        This part is for creating a sprite for animation
+        Parameters: bitmap, row, col, fps
+         */
+        //spr = new SpriteAnimation(BitmapFactory.decodeResource(_view.getResources(), R.drawable.bob), 1, 5, 20);
     }
 
     public void startVibrate()
@@ -72,6 +80,9 @@ public class Game
         pauseTimer += _dt;
         if (!getIsPaused())
         {
+            // Update sprite's animation
+            //spr.Update(_dt);
+
             // Rubbish Creation
             timer += _dt;
             if (timer > 1.0f)
@@ -148,7 +159,16 @@ public class Game
         EntityManager.Instance.Update(_dt);
     }
 
-    public void Render(Canvas _canvas) { EntityManager.Instance.Render(_canvas); }
+    public void Render(Canvas _canvas)
+    {
+        EntityManager.Instance.Render(_canvas);
+
+        /*
+         Render the sprite here, else other stuffs will cover it
+         Parameters: canvas, x position, y position
+        */
+        //spr.Render(_canvas, 250, 600);
+    }
 
     public boolean getIsPaused() { return isPause; }
     public void setIsPaused(boolean _isPaused) { isPause = _isPaused; }
