@@ -14,6 +14,7 @@ public class RubbishEntity implements EntityBase, Collidable
     private boolean isInit = false;
     private float xPos, yPos, xDir, yDir, lifeTime, bottomYPos;
     private String Type;
+    private int selectedLevel;
 
     // Collidable interface
     @Override
@@ -29,16 +30,18 @@ public class RubbishEntity implements EntityBase, Collidable
     public void onHit(Collidable _other)
     {
         EntityBase otherEntity = (EntityBase) _other;
-        if((this.getType() == "Paper" && otherEntity.getType() == "PaperBin") ||
-                (this.getType() == "Plastic" && otherEntity.getType() == "PlasticBin") ||
-                (this.getType() == "Metal" && otherEntity.getType() == "MetalBin") ||
-                (this.getType() == "Others" && otherEntity.getType() == "OthersBin"))
+
+        // Checking onHit between rubbish and bin
+        if((this.getType().equals("Paper")  && otherEntity.getType().equals("PaperBin")) ||
+                (this.getType().equals("Plastic") && otherEntity.getType().equals("PlasticBin")) ||
+                (this.getType().equals("Metal") && otherEntity.getType().equals("MetalBin")) ||
+                (this.getType().equals("Others") && otherEntity.getType().equals("OthersBin")))
             setIsDone(true);
         else
         {
             for(EntityBase currEntity : EntityManager.Instance.getEntityList())
             {
-                if(currEntity.getType() == "Heart")
+                if(currEntity.getType().equals("Heart"))
                 {
                     currEntity.setIsDone(true);
                     break;
@@ -73,69 +76,77 @@ public class RubbishEntity implements EntityBase, Collidable
     public void Init(SurfaceView _view)
     {
         Random ranGen = new Random();
+        selectedLevel = LevelManager.Instance.GetSelectedLevel();
         // Check for 4 different rubbish type and assign respective image to bmp
-        if(this.getType() == "Paper")
+        switch (this.getType())
         {
-            int random = ranGen.nextInt(3) + 1;
-            switch(random)
+            case "Paper":
             {
-                case 1:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.crumpled_paper);
-                    break;
-                case 2:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.newspaper);
-                    break;
-                case 3:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.milk_carton);
-                    break;
+                int random = ranGen.nextInt(3) + 1;
+                switch (random)
+                {
+                    case 1:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.crumpled_paper);
+                        break;
+                    case 2:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.newspaper);
+                        break;
+                    case 3:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.milk_carton);
+                        break;
+                }
+                break;
             }
-        }
-        else if(this.getType() == "Plastic")
-        {
-            int random = ranGen.nextInt(3) + 1;
-            switch(random)
+            case "Plastic":
             {
-                case 1:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_bag);
-                    break;
-                case 2:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_bottle);
-                    break;
-                case 3:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_spray_bottle);
-                    break;
+                int random = ranGen.nextInt(3) + 1;
+                switch (random)
+                {
+                    case 1:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_bag);
+                        break;
+                    case 2:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_bottle);
+                        break;
+                    case 3:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_spray_bottle);
+                        break;
+                }
+                break;
             }
-        }
-        else if(this.getType() == "Metal")
-        {
-            int random = ranGen.nextInt(3) + 1;
-            switch(random)
+            case "Metal":
             {
-                case 1:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_drink_can);
-                    break;
-                case 2:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_food_can);
-                    break;
-                case 3:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_spray_can);
-                    break;
+                int random = ranGen.nextInt(3) + 1;
+                switch (random)
+                {
+                    case 1:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_drink_can);
+                        break;
+                    case 2:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_food_can);
+                        break;
+                    case 3:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_spray_can);
+                        break;
+                }
+                break;
             }
-        }
-        else if(this.getType() == "Others")
-        {
-            int random = ranGen.nextInt(3) + 1;
-            switch(random)
+            case "Others":
             {
-                case 1:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.banana_peel);
-                    break;
-                case 2:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.eaten_apple);
-                    break;
-                case 3:
-                    bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.toothbrush);
-                    break;
+                int random = ranGen.nextInt(3) + 1;
+                switch (random)
+                {
+                    case 1:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.banana_peel);
+                        break;
+                    case 2:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.eaten_apple);
+                        break;
+                    case 3:
+                        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.toothbrush);
+                        break;
+                }
+                break;
             }
         }
 
@@ -145,6 +156,7 @@ public class RubbishEntity implements EntityBase, Collidable
         xDir = 0.0f;
         yDir = 300.0f;
         bottomYPos = _view.getHeight();
+
         isInit = true;
     }
 

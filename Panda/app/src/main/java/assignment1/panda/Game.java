@@ -14,6 +14,7 @@ public class Game
 {
     public final static Game Instance = new Game();
     private float timer = 0.0f;
+    private float spawnDelay = 1.0f;
     private float pauseTimer = 0.0f;
     private Bitmap bmpPaperBin = null;
     private Bitmap bmpPlasticBin = null;
@@ -24,6 +25,8 @@ public class Game
     private Vibrator vibrator;
     private boolean isPause = false;
 
+    private int selectedLevel = 0;
+
     //private SpriteAnimation spr = null;
 
     public void setGameActivity(GameActivity _gameActivity) { gameActivity = _gameActivity; }
@@ -32,17 +35,24 @@ public class Game
     public void Init(SurfaceView _view)
     {
         EntityManager.Instance.Init(_view);
+        selectedLevel = LevelManager.Instance.GetSelectedLevel();
         GameBackground.Create("BackGround");
         ButtonEntity.Create("PaperButton");
         ButtonEntity.Create("PlasticButton");
-        ButtonEntity.Create("MetalButton");
-        ButtonEntity.Create("OthersButton");
+        spawnDelay = 4.0f;
+
+        if(selectedLevel == 2)
+        {
+            ButtonEntity.Create("MetalButton");
+            ButtonEntity.Create("OthersButton");
+            bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
+            bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
+            spawnDelay = 2.0f;
+        }
         ButtonEntity.Create("BackButton");
         PlayerHealth.Create("Heart");
         bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
         bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
-        bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
-        bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
         bmpBack = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
 
         vibrator = (Vibrator) _view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
@@ -85,10 +95,16 @@ public class Game
 
             // Rubbish Creation
             timer += _dt;
-            if (timer > 1.0f)
+
+            if (timer > spawnDelay)
             {
                 Random ranGen = new Random();
-                int rubbishType = ranGen.nextInt(4) + 1;
+                int rubbishType = 0;// = ranGen.nextInt(4) + 1;
+
+                if(selectedLevel == 1)
+                    rubbishType = ranGen.nextInt(2) + 1;
+                else if(selectedLevel == 2)
+                    rubbishType = ranGen.nextInt(4) + 1;
                 switch (rubbishType)
                 {
                     case 1:
@@ -112,8 +128,6 @@ public class Game
         {
             float imgRadius = bmpPaperBin.getHeight() * 0.5f;
             float imgRadius2 = bmpPlasticBin.getHeight() * 0.5f;
-            float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
-            float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
             float imgRadius5 = bmpBack.getHeight() * 0.5f;
 
             if (!getIsPaused())
@@ -128,22 +142,31 @@ public class Game
                     // Create bin
                     BinEntity.Create("PlasticBin");
                     startVibrate();
-                } else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 700.0f, imgRadius3))
-                {
-                    // Create bin
-                    BinEntity.Create("MetalBin");
-                    startVibrate();
-                } else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 900.0f, imgRadius4))
-                {
-                    // Create bin
-                    BinEntity.Create("OthersBin");
-                    startVibrate();
                 }
                 else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5) && pauseTimer > 0.2f)
                 {
 //                    gameActivity.switchScreen();
                       setIsPaused(true);
                       pauseTimer = 0.0f;
+                }
+
+                if(selectedLevel == 2)
+                {
+                    float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
+                    float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
+
+                    if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 700.0f, imgRadius3))
+                    {
+                        // Create bin
+                        BinEntity.Create("MetalBin");
+                        startVibrate();
+                    }
+                    else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 900.0f, imgRadius4))
+                    {
+                        // Create bin
+                        BinEntity.Create("OthersBin");
+                        startVibrate();
+                    }
                 }
             }
             else
