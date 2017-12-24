@@ -171,6 +171,7 @@ public class Game
             }
             else
             {
+                Tutorial.Instance.Update();
                 if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5) && pauseTimer > 0.2f)
                 {
                     //gameActivity.switchScreen();
@@ -186,6 +187,7 @@ public class Game
     {
         EntityManager.Instance.Render(_canvas);
 
+        Tutorial.Instance.Render(_canvas, 500, 500);
         /*
          Render the sprite here, else other stuffs will cover it
          Parameters: canvas, x position, y position

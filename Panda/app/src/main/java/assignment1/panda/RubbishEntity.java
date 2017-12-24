@@ -16,6 +16,13 @@ public class RubbishEntity implements EntityBase, Collidable
     private String Type;
     private int selectedLevel;
 
+    /*
+    1 -> Crumpled Paper, Plastic Bag, Metal Drink Can, Banana Peel
+    2 -> Newspaper, Plastic Bottle, Metal Food Can, Eaten Apple
+    3 -> Milk Carton, Plastic Spray Bottle, Metal Spray Can, ToothBrush
+     */
+    private int rubbishType = 0;
+
     // Collidable interface
     @Override
     public float getPosX() { return xPos; }
@@ -78,12 +85,12 @@ public class RubbishEntity implements EntityBase, Collidable
         Random ranGen = new Random();
         selectedLevel = LevelManager.Instance.GetSelectedLevel();
         // Check for 4 different rubbish type and assign respective image to bmp
+        rubbishType = ranGen.nextInt(3) + 1;
         switch (this.getType())
         {
             case "Paper":
             {
-                int random = ranGen.nextInt(3) + 1;
-                switch (random)
+                switch (rubbishType)
                 {
                     case 1:
                         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.crumpled_paper);
@@ -99,8 +106,7 @@ public class RubbishEntity implements EntityBase, Collidable
             }
             case "Plastic":
             {
-                int random = ranGen.nextInt(3) + 1;
-                switch (random)
+                switch (rubbishType)
                 {
                     case 1:
                         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_bag);
@@ -116,8 +122,7 @@ public class RubbishEntity implements EntityBase, Collidable
             }
             case "Metal":
             {
-                int random = ranGen.nextInt(3) + 1;
-                switch (random)
+                switch (rubbishType)
                 {
                     case 1:
                         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_drink_can);
@@ -133,8 +138,7 @@ public class RubbishEntity implements EntityBase, Collidable
             }
             case "Others":
             {
-                int random = ranGen.nextInt(3) + 1;
-                switch (random)
+                switch (rubbishType)
                 {
                     case 1:
                         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.banana_peel);
@@ -181,7 +185,45 @@ public class RubbishEntity implements EntityBase, Collidable
         }
         // Third movement : DOWN
         else if(xPos < 100.0f && yPos <= 600.0f)
+        {
             yPos += yDir * _dt;
+
+            // Check position for tutorial
+            if(yPos > 600.0f)
+            {
+                switch(getType())
+                {
+                    case ("Paper"):
+                    {
+                        switch (rubbishType)
+                        {
+                            case 1:
+                                if (Tutorial.Instance.IsFirstCrumpledPaper() && !Tutorial.Instance.IsTeachCrumpledPaper())
+                                {
+                                    Tutorial.Instance.SetTeachCrumpledPaper(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                    case ("Plastic"):
+                    {
+                        switch (rubbishType)
+                        {
+                            case 2:
+                                if (Tutorial.Instance.IsFirstPlasticBottle() && !Tutorial.Instance.IsTeachPlasticBottle())
+                                {
+                                    Tutorial.Instance.SetTeachPlasticBottle(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
         // Fourth movement : RIGHT
         else if(yPos > 600.0f && xPos <= 850.0f)
             xPos += xDir * _dt;
