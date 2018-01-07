@@ -41,7 +41,10 @@ public class SpriteAnimation
         {
             ++currentFrame;
             if(currentFrame >= endFrame)
+            {
+                Game.Instance.showSprite = false;
                 currentFrame = startFrame;
+            }
             time = 0.0f;
         }
     }

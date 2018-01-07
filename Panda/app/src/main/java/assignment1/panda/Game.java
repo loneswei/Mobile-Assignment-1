@@ -27,7 +27,8 @@ public class Game
 
     private int selectedLevel = 0;
 
-    //private SpriteAnimation spr = null;
+    private SpriteAnimation spr = null;
+    public boolean showSprite = false;
 
     public void setGameActivity(GameActivity _gameActivity) { gameActivity = _gameActivity; }
 
@@ -71,7 +72,7 @@ public class Game
         This part is for creating a sprite for animation
         Parameters: bitmap, row, col, fps
          */
-        //spr = new SpriteAnimation(BitmapFactory.decodeResource(_view.getResources(), R.drawable.bob), 1, 5, 20);
+        spr = new SpriteAnimation(BitmapFactory.decodeResource(_view.getResources(), R.drawable.starsprite), 1, 3, 20);
     }
 
     public void startVibrate()
@@ -91,7 +92,8 @@ public class Game
         if (!getIsPaused())
         {
             // Update sprite's animation
-            //spr.Update(_dt);
+            if(showSprite)
+                spr.Update(_dt);
 
             // Rubbish Creation
             timer += _dt;
@@ -187,12 +189,13 @@ public class Game
     {
         EntityManager.Instance.Render(_canvas);
 
-        Tutorial.Instance.Render(_canvas, 500, 500);
+        Tutorial.Instance.Render(_canvas, 1050, 400);
         /*
          Render the sprite here, else other stuffs will cover it
          Parameters: canvas, x position, y position
         */
-        //spr.Render(_canvas, 250, 600);
+        if(showSprite)
+            spr.Render(_canvas, 950, 850);
     }
 
     public boolean getIsPaused() { return isPause; }

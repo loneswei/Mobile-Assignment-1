@@ -43,7 +43,10 @@ public class RubbishEntity implements EntityBase, Collidable
                 (this.getType().equals("Plastic") && otherEntity.getType().equals("PlasticBin")) ||
                 (this.getType().equals("Metal") && otherEntity.getType().equals("MetalBin")) ||
                 (this.getType().equals("Others") && otherEntity.getType().equals("OthersBin")))
+        {
+            Game.Instance.showSprite = true;
             setIsDone(true);
+        }
         else
         {
             for(EntityBase currEntity : EntityManager.Instance.getEntityList())
@@ -215,6 +218,20 @@ public class RubbishEntity implements EntityBase, Collidable
                                 if (Tutorial.Instance.IsFirstPlasticBottle() && !Tutorial.Instance.IsTeachPlasticBottle())
                                 {
                                     Tutorial.Instance.SetTeachPlasticBottle(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                    case("Others"):
+                    {
+                        switch(rubbishType)
+                        {
+                            case 2:
+                                if (Tutorial.Instance.IsFirstEatenApple() && !Tutorial.Instance.IsTeachEatenApple())
+                                {
+                                    Tutorial.Instance.SetTeachEatenApple(true);
                                     Game.Instance.setIsPaused(true);
                                 }
                                 break;
