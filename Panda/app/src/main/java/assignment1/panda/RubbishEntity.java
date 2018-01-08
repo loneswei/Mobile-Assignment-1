@@ -207,6 +207,20 @@ public class RubbishEntity implements EntityBase, Collidable
                                     Game.Instance.setIsPaused(true);
                                 }
                                 break;
+                            case 2:
+                                if (Tutorial.Instance.IsFirstNewsPaper() && !Tutorial.Instance.IsTeachNewsPaper())
+                                {
+                                    Tutorial.Instance.SetTeachNewsPaper(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
+                            case 3:
+                                if (Tutorial.Instance.IsFirstMilkCarton() && !Tutorial.Instance.IsTeachMilkCarton())
+                                {
+                                    Tutorial.Instance.SetTeachMilkCarton(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
                         }
                     }
                     break;
@@ -214,10 +228,52 @@ public class RubbishEntity implements EntityBase, Collidable
                     {
                         switch (rubbishType)
                         {
+                            case 1:
+                                if (Tutorial.Instance.IsFirstPlasticBag() && !Tutorial.Instance.IsTeachPlasticBag())
+                                {
+                                    Tutorial.Instance.SetTeachPlasticBag(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
                             case 2:
                                 if (Tutorial.Instance.IsFirstPlasticBottle() && !Tutorial.Instance.IsTeachPlasticBottle())
                                 {
                                     Tutorial.Instance.SetTeachPlasticBottle(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
+                            case 3:
+                                if (Tutorial.Instance.IsFirstPlasticSprayBottle() && !Tutorial.Instance.IsTeachPlasticSprayBottle())
+                                {
+                                    Tutorial.Instance.SetTeachPlasticSprayBottle(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                    case("Metal"):
+                    {
+                        switch(rubbishType)
+                        {
+                            case 1:
+                                if (Tutorial.Instance.IsFirstMetalDrinkCan() && !Tutorial.Instance.IsTeachMetalDrinkCan())
+                                {
+                                    Tutorial.Instance.SetTeachMetalDrinkCan(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
+                            case 2:
+                                if (Tutorial.Instance.IsFirstMetalFoodCan() && !Tutorial.Instance.IsTeachMetalFoodCan())
+                                {
+                                    Tutorial.Instance.SetTeachMetalFoodCan(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
+                            case 3:
+                                if (Tutorial.Instance.IsFirstMetalSprayCan() && !Tutorial.Instance.IsTeachMetalSprayCan())
+                                {
+                                    Tutorial.Instance.SetTeachMetalSprayCan(true);
                                     Game.Instance.setIsPaused(true);
                                 }
                                 break;
@@ -228,10 +284,24 @@ public class RubbishEntity implements EntityBase, Collidable
                     {
                         switch(rubbishType)
                         {
+                            case 1:
+                                if (Tutorial.Instance.IsFirstBananaPeel() && !Tutorial.Instance.IsTeachBananaPeel())
+                                {
+                                    Tutorial.Instance.SetTeachBananaPeel(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
                             case 2:
                                 if (Tutorial.Instance.IsFirstEatenApple() && !Tutorial.Instance.IsTeachEatenApple())
                                 {
                                     Tutorial.Instance.SetTeachEatenApple(true);
+                                    Game.Instance.setIsPaused(true);
+                                }
+                                break;
+                            case 3:
+                                if (Tutorial.Instance.IsFirstToothBrush() && !Tutorial.Instance.IsTeachToothBrush())
+                                {
+                                    Tutorial.Instance.SetTeachToothBrush(true);
                                     Game.Instance.setIsPaused(true);
                                 }
                                 break;
