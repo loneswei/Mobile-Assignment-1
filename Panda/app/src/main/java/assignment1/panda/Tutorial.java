@@ -200,7 +200,6 @@ public class Tutorial
             _canvas.drawBitmap(eatenAppleTutorial, xPos - eatenAppleTutorial.getWidth() * 0.5f, yPos - eatenAppleTutorial.getHeight() * 0.5f, null);
         else if(teachToothBrush)
             _canvas.drawBitmap(toothBrushTutorial, xPos - toothBrushTutorial.getWidth() * 0.5f, yPos - toothBrushTutorial.getHeight() * 0.5f, null);
-
     }
     //-------------------------------------------------------------------------------------------------------------------
 

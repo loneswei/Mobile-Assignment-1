@@ -31,5 +31,11 @@ public class AudioManager
         newAudio.start();
     }
 
-    public boolean IsPlaying() { return false; }
+    public boolean IsPlaying(int _id)
+    {
+        if(!audioMap.containsKey(_id))
+            return false;
+
+        return audioMap.get(_id).isPlaying();
+    }
 }

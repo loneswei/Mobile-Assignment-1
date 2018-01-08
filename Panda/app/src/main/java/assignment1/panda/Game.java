@@ -57,22 +57,15 @@ public class Game
         bmpBack = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
 
         vibrator = (Vibrator) _view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
-
-        /*
-        This part is how to play audio
-        Need to create a folder for audio file called raw first(Just like assets)
-        Then place the audio files into the folder
-
-        P.S
-        I do not remember if I did copied down everything about audio during lab, you might have to check against the lab video.
-         */
-        //AudioManager.Instance.PlayAudio(R.raw.bgm);
+        //AudioManager.Instance.PlayAudio(R.raw.background_music);
 
         /*
         This part is for creating a sprite for animation
         Parameters: bitmap, row, col, fps
          */
+
         spr = new SpriteAnimation(BitmapFactory.decodeResource(_view.getResources(), R.drawable.starsprite), 1, 3, 20);
+
     }
 
     public void startVibrate()
@@ -93,7 +86,10 @@ public class Game
         {
             // Update sprite's animation
             if(showSprite)
+            {
+                AudioManager.Instance.PlayAudio(R.raw.stars);
                 spr.Update(_dt);
+            }
 
             // Rubbish Creation
             timer += _dt;
@@ -139,17 +135,24 @@ public class Game
                     // Create bin
                     BinEntity.Create("PaperBin");
                     startVibrate();
-                } else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 500.0f, imgRadius2))
+
+                    AudioManager.Instance.PlayAudio(R.raw.paperbin);
+                }
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 500.0f, imgRadius2))
                 {
                     // Create bin
                     BinEntity.Create("PlasticBin");
                     startVibrate();
+
+                    AudioManager.Instance.PlayAudio(R.raw.plasticbin);
                 }
                 else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5) && pauseTimer > 0.2f)
                 {
 //                    gameActivity.switchScreen();
                       setIsPaused(true);
                       pauseTimer = 0.0f;
+
+                    AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 }
 
                 if(selectedLevel == 2)
@@ -162,12 +165,16 @@ public class Game
                         // Create bin
                         BinEntity.Create("MetalBin");
                         startVibrate();
+
+                        AudioManager.Instance.PlayAudio(R.raw.metalbin);
                     }
                     else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 900.0f, imgRadius4))
                     {
                         // Create bin
                         BinEntity.Create("OthersBin");
                         startVibrate();
+
+                        AudioManager.Instance.PlayAudio(R.raw.generalwastebin);
                     }
                 }
             }
@@ -179,6 +186,8 @@ public class Game
                     //gameActivity.switchScreen();
                     setIsPaused(false);
                     pauseTimer = 0.0f;
+
+                    AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 }
             }
         }
