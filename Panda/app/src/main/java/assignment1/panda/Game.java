@@ -63,9 +63,7 @@ public class Game
         This part is for creating a sprite for animation
         Parameters: bitmap, row, col, fps
          */
-
         spr = new SpriteAnimation(BitmapFactory.decodeResource(_view.getResources(), R.drawable.starsprite), 1, 3, 20);
-
     }
 
     public void startVibrate()
