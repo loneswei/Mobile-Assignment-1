@@ -18,7 +18,7 @@ public class AudioManager
 
     public void PlayAudio(int _id)
     {
-        if(Game.Instance.getIsPaused())
+        if(GameSystem.Instance.GetIsPaused())
             return;
         if(audioMap.containsKey(_id))
         {

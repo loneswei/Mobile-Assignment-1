@@ -62,7 +62,7 @@ public class GameBackground implements EntityBase
         paint.setStrokeWidth(200);
         paint.setTextSize(100.0f);
         paint.setTypeface(myfont);
-        if(!Game.Instance.getIsPaused())
+        if(!GameSystem.Instance.GetIsPaused())
             _canvas.drawText("Playing", 300,800,paint);
         else
             _canvas.drawText("Paused", 300,800,paint);

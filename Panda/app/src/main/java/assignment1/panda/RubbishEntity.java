@@ -45,7 +45,7 @@ public class RubbishEntity implements EntityBase, Collidable
                 (this.getType().equals("Metal") && otherEntity.getType().equals("MetalBin")) ||
                 (this.getType().equals("Others") && otherEntity.getType().equals("OthersBin")))
         {
-            Game.Instance.showSprite = true;
+            GameSystem.Instance.SetIsShowSprite(true);
             setIsDone(true);
         }
         else
@@ -171,7 +171,7 @@ public class RubbishEntity implements EntityBase, Collidable
     @Override
     public void Update(float _dt)
     {
-        if(Game.Instance.getIsPaused())
+        if(GameSystem.Instance.GetIsPaused())
             return;
         lifeTime -= _dt;
         if(lifeTime < 0.0f)
@@ -207,7 +207,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachCrumpledPaper(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                             case 2:
@@ -216,7 +216,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachNewsPaper(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                             case 3:
@@ -225,7 +225,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachMilkCarton(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                         }
@@ -241,7 +241,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachPlasticBag(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                             case 2:
@@ -250,7 +250,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachPlasticBottle(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                             case 3:
@@ -259,7 +259,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachPlasticSprayBottle(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                         }
@@ -275,7 +275,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachMetalDrinkCan(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                             case 2:
@@ -284,7 +284,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachMetalFoodCan(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                             case 3:
@@ -293,7 +293,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachMetalSprayCan(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                         }
@@ -309,7 +309,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachBananaPeel(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                             case 2:
@@ -318,7 +318,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachEatenApple(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                             case 3:
@@ -327,7 +327,7 @@ public class RubbishEntity implements EntityBase, Collidable
                                     AudioManager.Instance.PlayAudio(audioSFX_speechbubble);
 
                                     Tutorial.Instance.SetTeachToothBrush(true);
-                                    Game.Instance.setIsPaused(true);
+                                    GameSystem.Instance.SetIsPaused(true);
                                 }
                                 break;
                         }

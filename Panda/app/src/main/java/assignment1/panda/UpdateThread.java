@@ -16,8 +16,9 @@ public class UpdateThread extends Thread
         view = _view;
         holder = _view.getHolder();
         AudioManager.Instance.Init(_view);
-        Tutorial.Instance.Init(_view);
-        Game.Instance.Init(_view);
+        StateManager.Instance.Init(_view);
+        EntityManager.Instance.Init(_view);
+        GameSystem.Instance.Init(_view);
     }
 
     public boolean isRunning() { return isRunning; }
@@ -31,13 +32,15 @@ public class UpdateThread extends Thread
         long startTime = 0;
         long prevTime = System.nanoTime();
 
+        StateManager.Instance.Start("Intro");
         while(isRunning())
         {
             startTime = System.currentTimeMillis();
             long currTime = System.nanoTime();
             float dt = (float)((currTime - prevTime) / 1000000000.0f);
             prevTime = currTime;
-            Game.Instance.Update(dt);
+
+            StateManager.Instance.Update(dt);
 
             // Render
             Canvas canvas = holder.lockCanvas(null);
@@ -46,7 +49,7 @@ public class UpdateThread extends Thread
                 synchronized (holder)
                 {
                     canvas.drawColor(Color.BLACK);
-                    Game.Instance.Render(canvas);
+                    StateManager.Instance.Render(canvas);
                 }
                 holder.unlockCanvasAndPost(canvas);
             }

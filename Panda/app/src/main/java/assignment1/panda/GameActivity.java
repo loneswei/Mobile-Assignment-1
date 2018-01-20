@@ -21,7 +21,7 @@ public class GameActivity extends Activity
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(new GameView(this));
-        Game.Instance.setGameActivity(this);
+        GameSystem.Instance.SetGameActivity(this);
     }
 
     @Override

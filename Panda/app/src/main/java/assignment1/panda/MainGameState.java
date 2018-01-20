@@ -10,32 +10,26 @@ import android.view.SurfaceView;
 
 import java.util.Random;
 
-public class Game
+public class MainGameState implements StateBase
 {
-    public final static Game Instance = new Game();
     private float timer = 0.0f;
     private float spawnDelay = 1.0f;
-    private float pauseTimer = 0.0f;
     private Bitmap bmpPaperBin = null;
     private Bitmap bmpPlasticBin = null;
     private Bitmap bmpMetalBin = null;
     private Bitmap bmpOthersBin = null;
     private Bitmap bmpBack = null;
-    GameActivity gameActivity = null;
     private Vibrator vibrator;
-    private boolean isPause = false;
 
     private int selectedLevel = 0;
-
     private SpriteAnimation spr = null;
-    public boolean showSprite = false;
 
-    public void setGameActivity(GameActivity _gameActivity) { gameActivity = _gameActivity; }
+    @Override
+    public String GetName() { return "MainGame"; }
 
-    private Game() {}
-    public void Init(SurfaceView _view)
+    @Override
+    public void OnEnter(SurfaceView _view)
     {
-        EntityManager.Instance.Init(_view);
         selectedLevel = LevelManager.Instance.GetSelectedLevel();
         GameBackground.Create("BackGround");
         ButtonEntity.Create("PaperButton");
@@ -77,13 +71,18 @@ public class Game
         }
     }
 
+    @Override
+    public void OnExit() {
+
+    }
+
+    @Override
     public void Update(float _dt)
     {
-        pauseTimer += _dt;
-        if (!getIsPaused())
+        if (!GameSystem.Instance.GetIsPaused())
         {
             // Update sprite's animation
-            if(showSprite)
+            if(GameSystem.Instance.GetIsShowSprite())
             {
                 AudioManager.Instance.PlayAudio(R.raw.stars);
                 spr.Update(_dt);
@@ -126,7 +125,7 @@ public class Game
             float imgRadius2 = bmpPlasticBin.getHeight() * 0.5f;
             float imgRadius5 = bmpBack.getHeight() * 0.5f;
 
-            if (!getIsPaused())
+            if (!GameSystem.Instance.GetIsPaused())
             {
                 if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 300.0f, imgRadius))
                 {
@@ -144,12 +143,10 @@ public class Game
 
                     AudioManager.Instance.PlayAudio(R.raw.plasticbin);
                 }
-                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5) && pauseTimer > 0.2f)
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
                 {
 //                    gameActivity.switchScreen();
-                      setIsPaused(true);
-                      pauseTimer = 0.0f;
-
+                    GameSystem.Instance.SetIsPaused(true);
                     AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 }
 
@@ -179,12 +176,10 @@ public class Game
             else
             {
                 Tutorial.Instance.Update();
-                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5) && pauseTimer > 0.2f)
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
                 {
                     //gameActivity.switchScreen();
-                    setIsPaused(false);
-                    pauseTimer = 0.0f;
-
+                    GameSystem.Instance.SetIsPaused(false);
                     AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 }
             }
@@ -192,6 +187,7 @@ public class Game
         EntityManager.Instance.Update(_dt);
     }
 
+    @Override
     public void Render(Canvas _canvas)
     {
         EntityManager.Instance.Render(_canvas);
@@ -201,11 +197,7 @@ public class Game
          Render the sprite here, else other stuffs will cover it
          Parameters: canvas, x position, y position
         */
-        if(showSprite)
+        if(GameSystem.Instance.GetIsShowSprite())
             spr.Render(_canvas, 950, 850);
     }
-
-    public boolean getIsPaused() { return isPause; }
-    public void setIsPaused(boolean _isPaused) { isPause = _isPaused; }
-
 }

@@ -94,8 +94,7 @@ public class Tutorial
     {
         if(TouchManager.Instance.isDown())
         {
-            Game.Instance.setIsPaused(false);
-
+            GameSystem.Instance.SetIsPaused(false);
             // Reset teach to stop rendering tutorial bmp
             // Set first to false as it is taught to the player
             // Paper
