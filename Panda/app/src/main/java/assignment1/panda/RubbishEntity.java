@@ -47,6 +47,13 @@ public class RubbishEntity implements EntityBase, Collidable
         {
             GameSystem.Instance.SetIsShowSprite(true);
             setIsDone(true);
+
+            //Update score
+            int currScore = GameSystem.Instance.GetIntFromSave("Score");
+            ++currScore;
+            GameSystem.Instance.SaveEditBegin();
+            GameSystem.Instance.SetIntInSave("Score", currScore);
+            GameSystem.Instance.SaveEditEnd();
         }
         else
         {

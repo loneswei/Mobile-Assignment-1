@@ -3,6 +3,8 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -199,5 +201,11 @@ public class MainGameState implements StateBase
         */
         if(GameSystem.Instance.GetIsShowSprite())
             spr.Render(_canvas, 950, 850);
+
+        String scoreText = String.format("SCORE : %d", GameSystem.Instance.GetIntFromSave("Score"));
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(64);
+        _canvas.drawText(scoreText, 10, 220,paint);
     }
 }

@@ -20,8 +20,8 @@ public class GameActivity extends Activity
         // Hide Top Bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(new GameView(this));
         GameSystem.Instance.SetGameActivity(this);
+        setContentView(new GameView(this));
     }
 
     @Override
