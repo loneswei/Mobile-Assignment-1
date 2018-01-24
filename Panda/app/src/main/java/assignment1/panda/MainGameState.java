@@ -148,7 +148,14 @@ public class MainGameState implements StateBase
                 else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
                 {
 //                    gameActivity.switchScreen();
-                    GameSystem.Instance.SetIsPaused(true);
+                    //GameSystem.Instance.SetIsPaused(true);
+
+                    if(PauseConfirmDialogFragment.IsShown)
+                        return;
+
+                    PauseConfirmDialogFragment newPauseConfirmation = new PauseConfirmDialogFragment();
+                    newPauseConfirmation.show(GameSystem.Instance.gameActivity.getFragmentManager(), "PauseConfirm");
+
                     AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 }
 
@@ -181,7 +188,14 @@ public class MainGameState implements StateBase
                 if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
                 {
                     //gameActivity.switchScreen();
-                    GameSystem.Instance.SetIsPaused(false);
+                    //GameSystem.Instance.SetIsPaused(false);
+
+//                    if(PauseConfirmDialogFragment.IsShown)
+//                        return;
+//
+//                    PauseConfirmDialogFragment newPauseConfirmation = new PauseConfirmDialogFragment();
+//                    newPauseConfirmation.show(GameSystem.Instance.gameActivity.getFragmentManager(), "PauseConfirm");
+
                     AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 }
             }
