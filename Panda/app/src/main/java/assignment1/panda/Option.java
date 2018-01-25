@@ -39,7 +39,7 @@ public class Option extends Activity implements View.OnClickListener {
 
         if(v == button_back)
         {
-            intent.setClass(this, Mainmenu.class);
+            //intent.setClass(this, Mainmenu.class);
         }
 
         startActivity(intent);

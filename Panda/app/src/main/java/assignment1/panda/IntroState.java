@@ -34,8 +34,8 @@ public class IntroState implements StateBase
     public void Update(float _dt)
     {
         timer -= _dt;
-        if(timer <= 0.0f) { StateManager.Instance.ChangeState("MainGame"); }
-        if(TouchManager.Instance.hasTouch()) { StateManager.Instance.ChangeState("MainGame"); }
+        if(timer <= 0.0f) { StateManager.Instance.ChangeState("MainMenu"); }
+        if(TouchManager.Instance.hasTouch()) { StateManager.Instance.ChangeState("MainMenu"); }
     }
 
     @Override

@@ -27,6 +27,8 @@ public class GameSystem
         // Add game states here
         StateManager.Instance.AddState(new MainGameState());
         StateManager.Instance.AddState(new IntroState());
+        StateManager.Instance.AddState(new MainMenuState());
+        StateManager.Instance.AddState(new LevelSelectState());
     }
 
     public void Update(float _dt)

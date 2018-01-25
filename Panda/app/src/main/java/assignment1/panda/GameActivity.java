@@ -39,6 +39,6 @@ public class GameActivity extends Activity
         EntityManager.Instance.getEntityList().clear();
         finish();
         Intent intent = new Intent();
-        intent.setClass(this, LevelSelect.class);
+        intent.setClass(this, LevelSelectState.class);
     }
 }
