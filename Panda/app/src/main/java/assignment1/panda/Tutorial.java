@@ -12,21 +12,28 @@ public class Tutorial
     private SurfaceView view = null;
 
     // All rubbish tutorial bitmaps
-    Bitmap crumpledPaperTutorial = null;
-    Bitmap newsPaperTutorial = null;
-    Bitmap milkCartonTutorial = null;
+    private Bitmap crumpledPaperTutorial = null;
+    private Bitmap newsPaperTutorial = null;
+    private Bitmap milkCartonTutorial = null;
 
-    Bitmap plasticBagTutorial = null;
-    Bitmap plasticBottleTutorial = null;
-    Bitmap plasticSprayBottleTutorial = null;
+    private Bitmap plasticBagTutorial = null;
+    private Bitmap plasticBottleTutorial = null;
+    private Bitmap plasticSprayBottleTutorial = null;
 
-    Bitmap metalDrinkCanTutorial = null;
-    Bitmap metalFoodCanTutorial = null;
-    Bitmap metalSprayCanTutorial = null;
+    private Bitmap metalDrinkCanTutorial = null;
+    private Bitmap metalFoodCanTutorial = null;
+    private Bitmap metalSprayCanTutorial = null;
 
-    Bitmap bananaPeelTutorial = null;
-    Bitmap eatenAppleTutorial = null;
-    Bitmap toothBrushTutorial = null;
+    private Bitmap bananaPeelTutorial = null;
+    private Bitmap eatenAppleTutorial = null;
+    private Bitmap toothBrushTutorial = null;
+
+    private Bitmap redCircle = null;
+    private Bitmap bmpPaperBin = null;
+    private Bitmap bmpPlasticBin = null;
+    private Bitmap bmpMetalBin = null;
+    private Bitmap bmpOthersBin = null;
+    private Bitmap redArrow = null;
 
     // Booleans for checking first occurrence of each rubbish
     private boolean firstCrumpledPaper = true;
@@ -62,6 +69,8 @@ public class Tutorial
     private boolean teachEatenApple = false;
     private boolean teachToothBrush = false;
 
+    boolean isTeaching = true;
+
     private Tutorial() {}
 
     public void Init(SurfaceView _view)
@@ -88,117 +97,180 @@ public class Tutorial
         bananaPeelTutorial = BitmapFactory.decodeResource(_view.getResources(), R.drawable.teachbananapeel);
         eatenAppleTutorial = BitmapFactory.decodeResource(_view.getResources(), R.drawable.teacheatenapple);
         toothBrushTutorial = BitmapFactory.decodeResource(_view.getResources(), R.drawable.teachtoothbrush);
+
+        // Red Circle & Bins
+        redCircle = BitmapFactory.decodeResource(_view.getResources(), R.drawable.red_circle);
+        bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
+        bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
+        bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
+        bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
+        redArrow = BitmapFactory.decodeResource(_view.getResources(), R.drawable.red_arrow);
     }
 
-    public void Update()
+    public void Update(float _dt)
     {
         if(TouchManager.Instance.isDown())
         {
-            GameSystem.Instance.SetIsPaused(false);
             // Reset teach to stop rendering tutorial bmp
             // Set first to false as it is taught to the player
+
             // Paper
-            if (teachCrumpledPaper)
+            if(teachCrumpledPaper || teachNewsPaper || teachMilkCarton)
             {
-                teachCrumpledPaper = false;
-                firstCrumpledPaper = false;
-            }
-            else if(teachNewsPaper)
-            {
-                teachNewsPaper = false;
-                firstNewsPaper = false;
-            }
-            else if(teachMilkCarton)
-            {
-                teachMilkCarton = false;
-                firstMilkCarton = false;
+                float imgRadius = bmpPaperBin.getHeight() * 0.5f;
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 300.0f, 1000.0f, imgRadius))
+                {
+                    isTeaching = false;
+                    GameSystem.Instance.SetIsPaused(false);
+                    if (teachCrumpledPaper)
+                    {
+                        teachCrumpledPaper = false;
+                        firstCrumpledPaper = false;
+                    }
+                    else if (teachNewsPaper)
+                    {
+                        teachNewsPaper = false;
+                        firstNewsPaper = false;
+                    }
+                    else if (teachMilkCarton)
+                    {
+                        teachMilkCarton = false;
+                        firstMilkCarton = false;
+                    }
+                }
             }
 
             // Plastic
-            else if(teachPlasticBag)
+            else if(teachPlasticBag || teachPlasticBottle || teachPlasticSprayBottle)
             {
-                teachPlasticBag = false;
-                firstPlasticBag = false;
-            }
-            else if(teachPlasticBottle)
-            {
-                teachPlasticBottle = false;
-                firstPlasticBottle = false;
-            }
-            else if(teachPlasticSprayBottle)
-            {
-                teachPlasticSprayBottle = false;
-                firstPlasticSprayBottle = false;
+                float imgRadius = bmpPlasticBin.getHeight() * 0.5f;
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 600.0f, 1000.0f, imgRadius))
+                {
+                    isTeaching = false;
+                    GameSystem.Instance.SetIsPaused(false);
+                    if (teachPlasticBag)
+                    {
+                        teachPlasticBag = false;
+                        firstPlasticBag = false;
+                    }
+                    else if (teachPlasticBottle)
+                    {
+                        teachPlasticBottle = false;
+                        firstPlasticBottle = false;
+                    }
+                    else if (teachPlasticSprayBottle)
+                    {
+                        teachPlasticSprayBottle = false;
+                        firstPlasticSprayBottle = false;
+                    }
+                }
             }
 
             // Metal
-            else if(teachMetalDrinkCan)
+            else if(teachMetalDrinkCan || teachMetalFoodCan || teachMetalSprayCan)
             {
-                teachMetalDrinkCan = false;
-                firstMetalDrinkCan = false;
-            }
-            else if(teachMetalFoodCan)
-            {
-                teachMetalFoodCan = false;
-                firstMetalFoodCan = false;
-            }
-            else if(teachMetalSprayCan)
-            {
-                teachMetalSprayCan = false;
-                firstMetalSprayCan = false;
+                float imgRadius = bmpMetalBin.getHeight() * 0.5f;
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1200.0f, 1000.0f, imgRadius))
+                {
+                    isTeaching = false;
+                    GameSystem.Instance.SetIsPaused(false);
+                    if (teachMetalDrinkCan)
+                    {
+                        teachMetalDrinkCan = false;
+                        firstMetalDrinkCan = false;
+                    }
+                    else if (teachMetalFoodCan)
+                    {
+                        teachMetalFoodCan = false;
+                        firstMetalFoodCan = false;
+                    }
+                    else if (teachMetalSprayCan)
+                    {
+                        teachMetalSprayCan = false;
+                        firstMetalSprayCan = false;
+                    }
+                }
             }
 
             // Others
-            else if(teachBananaPeel)
+            else if(teachBananaPeel || teachEatenApple || teachToothBrush)
             {
-                teachBananaPeel = false;
-                firstBananaPeel = false;
-            }
-            else if(teachEatenApple)
-            {
-                teachEatenApple = false;
-                firstEatenApple = false;
-            }
-            else if(teachToothBrush)
-            {
-                teachToothBrush = false;
-                firstToothBrush = false;
+                float imgRadius = bmpOthersBin.getHeight() * 0.5f;
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1500.0f, 1000.0f, imgRadius))
+                {
+                    isTeaching = false;
+                    GameSystem.Instance.SetIsPaused(false);
+                    if (teachBananaPeel)
+                    {
+                        teachBananaPeel = false;
+                        firstBananaPeel = false;
+                    }
+                    else if (teachEatenApple)
+                    {
+                        teachEatenApple = false;
+                        firstEatenApple = false;
+                    }
+                    else if (teachToothBrush)
+                    {
+                        teachToothBrush = false;
+                        firstToothBrush = false;
+                    }
+                }
             }
         }
     }
     public void Render(Canvas _canvas, float xPos, float yPos)
     {
+        if(teachCrumpledPaper || teachNewsPaper || teachMilkCarton || teachPlasticBag || teachPlasticBottle || teachPlasticSprayBottle ||
+                teachMetalDrinkCan || teachMetalFoodCan || teachMetalSprayCan || teachBananaPeel || teachEatenApple || teachToothBrush)
+            _canvas.drawBitmap(redCircle,90.0f - redCircle.getWidth() * 0.5f, 610.0f - redCircle.getHeight() * 0.5f, null);
         // Paper
-        if(teachCrumpledPaper)
-            _canvas.drawBitmap(crumpledPaperTutorial, xPos - crumpledPaperTutorial.getWidth() * 0.5f, yPos - crumpledPaperTutorial.getHeight() * 0.5f, null);
-        else if(teachNewsPaper)
-            _canvas.drawBitmap(newsPaperTutorial, xPos - newsPaperTutorial.getWidth() * 0.5f, yPos - newsPaperTutorial.getHeight() * 0.5f, null);
-        else if(teachMilkCarton)
-            _canvas.drawBitmap(milkCartonTutorial, xPos - milkCartonTutorial.getWidth() * 0.5f, yPos - milkCartonTutorial.getHeight() * 0.5f, null);
+        if(teachCrumpledPaper || teachNewsPaper || teachMilkCarton)
+        {
+            _canvas.drawBitmap(redArrow, 400 - redArrow.getWidth() * 0.5f, 900 - redArrow.getHeight() * 0.5f, null);
+            if (teachCrumpledPaper)
+                _canvas.drawBitmap(crumpledPaperTutorial, xPos - crumpledPaperTutorial.getWidth() * 0.5f, yPos - crumpledPaperTutorial.getHeight() * 0.5f, null);
+            else if (teachNewsPaper)
+                _canvas.drawBitmap(newsPaperTutorial, xPos - newsPaperTutorial.getWidth() * 0.5f, yPos - newsPaperTutorial.getHeight() * 0.5f, null);
+            else if (teachMilkCarton)
+                _canvas.drawBitmap(milkCartonTutorial, xPos - milkCartonTutorial.getWidth() * 0.5f, yPos - milkCartonTutorial.getHeight() * 0.5f, null);
+        }
 
         // Plastic
-        else if(teachPlasticBag)
-            _canvas.drawBitmap(plasticBagTutorial, xPos - plasticBagTutorial.getWidth() * 0.5f, yPos - plasticBagTutorial.getHeight() * 0.5f, null);
-        else if(teachPlasticBottle)
-            _canvas.drawBitmap(plasticBottleTutorial, xPos - plasticBottleTutorial.getWidth() * 0.5f, yPos - plasticBottleTutorial.getHeight() * 0.5f, null);
-        else if(teachPlasticSprayBottle)
-            _canvas.drawBitmap(plasticSprayBottleTutorial, xPos - plasticSprayBottleTutorial.getWidth() * 0.5f, yPos - plasticSprayBottleTutorial.getHeight() * 0.5f, null);
+        else if(teachPlasticBag || teachPlasticBottle || teachPlasticSprayBottle)
+        {
+            _canvas.drawBitmap(redArrow, 700 - redArrow.getWidth() * 0.5f, 900 - redArrow.getHeight() * 0.5f, null);
+            if (teachPlasticBag)
+                _canvas.drawBitmap(plasticBagTutorial, xPos - plasticBagTutorial.getWidth() * 0.5f, yPos - plasticBagTutorial.getHeight() * 0.5f, null);
+            else if (teachPlasticBottle)
+                _canvas.drawBitmap(plasticBottleTutorial, xPos - plasticBottleTutorial.getWidth() * 0.5f, yPos - plasticBottleTutorial.getHeight() * 0.5f, null);
+            else if (teachPlasticSprayBottle)
+                _canvas.drawBitmap(plasticSprayBottleTutorial, xPos - plasticSprayBottleTutorial.getWidth() * 0.5f, yPos - plasticSprayBottleTutorial.getHeight() * 0.5f, null);
+        }
 
         // Metal
-        else if(teachMetalDrinkCan)
-            _canvas.drawBitmap(metalDrinkCanTutorial, xPos - metalDrinkCanTutorial.getWidth() * 0.5f, yPos - metalDrinkCanTutorial.getHeight() * 0.5f, null);
-        else if(teachMetalFoodCan)
-            _canvas.drawBitmap(metalFoodCanTutorial, xPos - metalFoodCanTutorial.getWidth() * 0.5f, yPos - metalFoodCanTutorial.getHeight() * 0.5f, null);
-        else if(teachMetalSprayCan)
-            _canvas.drawBitmap(metalSprayCanTutorial, xPos - metalSprayCanTutorial.getWidth() * 0.5f, yPos - metalSprayCanTutorial.getHeight() * 0.5f, null);
+        else if(teachMetalDrinkCan || teachMetalFoodCan || teachMetalSprayCan)
+        {
+            _canvas.drawBitmap(redArrow, 1300 - redArrow.getWidth() * 0.5f, 900 - redArrow.getHeight() * 0.5f, null);
+            if (teachMetalDrinkCan)
+                _canvas.drawBitmap(metalDrinkCanTutorial, xPos - metalDrinkCanTutorial.getWidth() * 0.5f, yPos - metalDrinkCanTutorial.getHeight() * 0.5f, null);
+            else if (teachMetalFoodCan)
+                _canvas.drawBitmap(metalFoodCanTutorial, xPos - metalFoodCanTutorial.getWidth() * 0.5f, yPos - metalFoodCanTutorial.getHeight() * 0.5f, null);
+            else if (teachMetalSprayCan)
+                _canvas.drawBitmap(metalSprayCanTutorial, xPos - metalSprayCanTutorial.getWidth() * 0.5f, yPos - metalSprayCanTutorial.getHeight() * 0.5f, null);
+        }
 
         // Others
-        else if(teachBananaPeel)
-            _canvas.drawBitmap(bananaPeelTutorial, xPos - bananaPeelTutorial.getWidth() * 0.5f, yPos - bananaPeelTutorial.getHeight() * 0.5f, null);
-        else if(teachEatenApple)
-            _canvas.drawBitmap(eatenAppleTutorial, xPos - eatenAppleTutorial.getWidth() * 0.5f, yPos - eatenAppleTutorial.getHeight() * 0.5f, null);
-        else if(teachToothBrush)
-            _canvas.drawBitmap(toothBrushTutorial, xPos - toothBrushTutorial.getWidth() * 0.5f, yPos - toothBrushTutorial.getHeight() * 0.5f, null);
+        else if(teachBananaPeel || teachEatenApple || teachToothBrush)
+        {
+            _canvas.drawBitmap(redArrow, 1600 - redArrow.getWidth() * 0.5f, 900 - redArrow.getHeight() * 0.5f, null);
+            if (teachBananaPeel)
+                _canvas.drawBitmap(bananaPeelTutorial, xPos - bananaPeelTutorial.getWidth() * 0.5f, yPos - bananaPeelTutorial.getHeight() * 0.5f, null);
+            else if (teachEatenApple)
+                _canvas.drawBitmap(eatenAppleTutorial, xPos - eatenAppleTutorial.getWidth() * 0.5f, yPos - eatenAppleTutorial.getHeight() * 0.5f, null);
+            else if (teachToothBrush)
+                _canvas.drawBitmap(toothBrushTutorial, xPos - toothBrushTutorial.getWidth() * 0.5f, yPos - toothBrushTutorial.getHeight() * 0.5f, null);
+        }
     }
     //-------------------------------------------------------------------------------------------------------------------
 

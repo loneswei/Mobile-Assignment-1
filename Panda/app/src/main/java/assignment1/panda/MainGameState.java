@@ -36,21 +36,19 @@ public class MainGameState implements StateBase
         GameBackground.Create("BackGround");
         ButtonEntity.Create("PaperButton");
         ButtonEntity.Create("PlasticButton");
-        spawnDelay = 4.0f;
-
-        if(selectedLevel == 2)
-        {
-            ButtonEntity.Create("MetalButton");
-            ButtonEntity.Create("OthersButton");
-            bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
-            bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
-            spawnDelay = 2.0f;
-        }
+        ButtonEntity.Create("MetalButton");
+        ButtonEntity.Create("OthersButton");
         ButtonEntity.Create("BackButton");
         PlayerHealth.Create("Heart");
         bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
         bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
+        bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
+        bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
         bmpBack = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
+
+        spawnDelay = 4.0f;
+        if(selectedLevel == 2)
+            spawnDelay = 2.0f;
 
         vibrator = (Vibrator) _view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
         //AudioManager.Instance.PlayAudio(R.raw.background_music);
@@ -147,7 +145,8 @@ public class MainGameState implements StateBase
 
                     AudioManager.Instance.PlayAudio(R.raw.plasticbin);
                 }
-                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1200.0f, 1000.0f, imgRadius3)) {
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1200.0f, 1000.0f, imgRadius3))
+                {
                     // Create bin
                     BinEntity.Create("MetalBin");
                     startVibrate();
@@ -178,8 +177,9 @@ public class MainGameState implements StateBase
             }
             else
             {
-                Tutorial.Instance.Update();
-                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
+                if(selectedLevel == 1)
+                    Tutorial.Instance.Update(_dt);
+                if (!Tutorial.Instance.isTeaching && Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
                 {
                     //gameActivity.switchScreen();
                     //GameSystem.Instance.SetIsPaused(false);
@@ -202,7 +202,8 @@ public class MainGameState implements StateBase
     {
         EntityManager.Instance.Render(_canvas);
 
-        Tutorial.Instance.Render(_canvas, 1050, 400);
+        if(selectedLevel == 1)
+            Tutorial.Instance.Render(_canvas, 1050, 400);
         /*
          Render the sprite here, else other stuffs will cover it
          Parameters: canvas, x position, y position

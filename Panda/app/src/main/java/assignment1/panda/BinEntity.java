@@ -31,8 +31,10 @@ public class BinEntity implements EntityBase, Collidable
                 otherEntity.getType() == "PlasticBin" ||
                 otherEntity.getType() == "MetalBin" ||
                 otherEntity.getType() == "OthersBin")
+        {
             otherEntity.setIsDone(true);
-        this.setIsDone(false);
+            setIsDone(false);
+        }
     }
 
     // EntityBase interface
