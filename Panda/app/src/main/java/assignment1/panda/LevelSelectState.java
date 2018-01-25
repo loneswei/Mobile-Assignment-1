@@ -142,7 +142,7 @@ public class LevelSelectState implements StateBase
                 StateManager.Instance.ChangeState("MainGame");
             }
 
-            // Back Button. ScreenWidth * 0.f, ScreenHeight * 0.0f
+            // Back Button.
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.04f, ScreenHeight * 0.05f, imgBack))
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);

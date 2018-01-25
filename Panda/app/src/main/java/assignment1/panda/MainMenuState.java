@@ -59,7 +59,7 @@ public class MainMenuState implements StateBase
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.85f, ScreenHeight * 0.8f, imgRadius2))
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
-                // StateManager.Instance.ChangeState("Options");
+                StateManager.Instance.ChangeState("Options");
             }
         }
     }
