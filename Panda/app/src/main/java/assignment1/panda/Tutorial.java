@@ -3,6 +3,7 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 public class Tutorial
@@ -69,7 +70,8 @@ public class Tutorial
     private boolean teachEatenApple = false;
     private boolean teachToothBrush = false;
 
-    boolean isTeaching = true;
+    boolean isTeaching = false;
+    private int ScreenWidth, ScreenHeight;
 
     private Tutorial() {}
 
@@ -105,6 +107,9 @@ public class Tutorial
         bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
         bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
         redArrow = BitmapFactory.decodeResource(_view.getResources(), R.drawable.red_arrow);
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
     }
 
     public void Update()
@@ -118,7 +123,7 @@ public class Tutorial
             if(teachCrumpledPaper || teachNewsPaper || teachMilkCarton)
             {
                 float imgRadius = bmpPaperBin.getHeight() * 0.5f;
-                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 300.0f, 1000.0f, imgRadius))
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.2f, ScreenHeight * 0.925f, imgRadius))
                 {
                     isTeaching = false;
                     GameSystem.Instance.SetIsPaused(false);
@@ -144,7 +149,7 @@ public class Tutorial
             else if(teachPlasticBag || teachPlasticBottle || teachPlasticSprayBottle)
             {
                 float imgRadius = bmpPlasticBin.getHeight() * 0.5f;
-                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 600.0f, 1000.0f, imgRadius))
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.35f, ScreenHeight * 0.925f, imgRadius))
                 {
                     isTeaching = false;
                     GameSystem.Instance.SetIsPaused(false);
@@ -170,7 +175,7 @@ public class Tutorial
             else if(teachMetalDrinkCan || teachMetalFoodCan || teachMetalSprayCan)
             {
                 float imgRadius = bmpMetalBin.getHeight() * 0.5f;
-                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1200.0f, 1000.0f, imgRadius))
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.65f, ScreenHeight * 0.925f, imgRadius))
                 {
                     isTeaching = false;
                     GameSystem.Instance.SetIsPaused(false);
@@ -196,7 +201,7 @@ public class Tutorial
             else if(teachBananaPeel || teachEatenApple || teachToothBrush)
             {
                 float imgRadius = bmpOthersBin.getHeight() * 0.5f;
-                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1500.0f, 1000.0f, imgRadius))
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.8f, ScreenHeight * 0.925f, imgRadius))
                 {
                     isTeaching = false;
                     GameSystem.Instance.SetIsPaused(false);
@@ -223,11 +228,11 @@ public class Tutorial
     {
         if(teachCrumpledPaper || teachNewsPaper || teachMilkCarton || teachPlasticBag || teachPlasticBottle || teachPlasticSprayBottle ||
                 teachMetalDrinkCan || teachMetalFoodCan || teachMetalSprayCan || teachBananaPeel || teachEatenApple || teachToothBrush)
-            _canvas.drawBitmap(redCircle,90.0f - redCircle.getWidth() * 0.5f, 610.0f - redCircle.getHeight() * 0.5f, null);
+            _canvas.drawBitmap(redCircle,ScreenWidth * 0.075f - redCircle.getWidth() * 0.5f, ScreenHeight * 0.55f - redCircle.getHeight() * 0.5f, null);
         // Paper
         if(teachCrumpledPaper || teachNewsPaper || teachMilkCarton)
         {
-            _canvas.drawBitmap(redArrow, 400 - redArrow.getWidth() * 0.5f, 900 - redArrow.getHeight() * 0.5f, null);
+            _canvas.drawBitmap(redArrow, ScreenWidth * 0.25f - redArrow.getWidth() * 0.5f, ScreenHeight * 0.8f - redArrow.getHeight() * 0.5f, null);
             if (teachCrumpledPaper)
                 _canvas.drawBitmap(crumpledPaperTutorial, xPos - crumpledPaperTutorial.getWidth() * 0.5f, yPos - crumpledPaperTutorial.getHeight() * 0.5f, null);
             else if (teachNewsPaper)
@@ -239,7 +244,7 @@ public class Tutorial
         // Plastic
         else if(teachPlasticBag || teachPlasticBottle || teachPlasticSprayBottle)
         {
-            _canvas.drawBitmap(redArrow, 700 - redArrow.getWidth() * 0.5f, 900 - redArrow.getHeight() * 0.5f, null);
+            _canvas.drawBitmap(redArrow, ScreenWidth * 0.4f - redArrow.getWidth() * 0.5f, ScreenHeight * 0.8f - redArrow.getHeight() * 0.5f, null);
             if (teachPlasticBag)
                 _canvas.drawBitmap(plasticBagTutorial, xPos - plasticBagTutorial.getWidth() * 0.5f, yPos - plasticBagTutorial.getHeight() * 0.5f, null);
             else if (teachPlasticBottle)
@@ -251,7 +256,7 @@ public class Tutorial
         // Metal
         else if(teachMetalDrinkCan || teachMetalFoodCan || teachMetalSprayCan)
         {
-            _canvas.drawBitmap(redArrow, 1300 - redArrow.getWidth() * 0.5f, 900 - redArrow.getHeight() * 0.5f, null);
+            _canvas.drawBitmap(redArrow, ScreenWidth * 0.7f - redArrow.getWidth() * 0.5f, ScreenHeight * 0.8f - redArrow.getHeight() * 0.5f, null);
             if (teachMetalDrinkCan)
                 _canvas.drawBitmap(metalDrinkCanTutorial, xPos - metalDrinkCanTutorial.getWidth() * 0.5f, yPos - metalDrinkCanTutorial.getHeight() * 0.5f, null);
             else if (teachMetalFoodCan)
@@ -263,7 +268,7 @@ public class Tutorial
         // Others
         else if(teachBananaPeel || teachEatenApple || teachToothBrush)
         {
-            _canvas.drawBitmap(redArrow, 1600 - redArrow.getWidth() * 0.5f, 900 - redArrow.getHeight() * 0.5f, null);
+            _canvas.drawBitmap(redArrow, ScreenWidth * 0.85f - redArrow.getWidth() * 0.5f, ScreenHeight * 0.8f - redArrow.getHeight() * 0.5f, null);
             if (teachBananaPeel)
                 _canvas.drawBitmap(bananaPeelTutorial, xPos - bananaPeelTutorial.getWidth() * 0.5f, yPos - bananaPeelTutorial.getHeight() * 0.5f, null);
             else if (teachEatenApple)

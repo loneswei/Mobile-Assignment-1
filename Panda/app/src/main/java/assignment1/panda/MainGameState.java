@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 import java.util.Random;
@@ -27,6 +28,7 @@ public class MainGameState implements StateBase
     private int numOfRubbish = 0;
     private int maxNumOfRubbish = 0;
     private SpriteAnimation spr = null;
+    private int ScreenWidth, ScreenHeight;
 
     @Override
     public String GetName() { return "MainGame"; }
@@ -63,6 +65,9 @@ public class MainGameState implements StateBase
         Parameters: bitmap, row, col, fps
          */
         spr = new SpriteAnimation(BitmapFactory.decodeResource(_view.getResources(), R.drawable.starsprite), 1, 3, 20);
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
     }
 
     private void startVibrate()
@@ -75,12 +80,8 @@ public class MainGameState implements StateBase
             vibrator.vibrate(pattern, -1);
         }
     }
-
     @Override
-    public void OnExit() {
-
-    }
-
+    public void OnExit(){}
     @Override
     public void Update(float _dt)
     {
@@ -95,7 +96,6 @@ public class MainGameState implements StateBase
 
             // Rubbish Creation
             timer += _dt;
-
             if (numOfRubbish <= maxNumOfRubbish && timer > spawnDelay)
             {
                 numOfRubbish += 1;
@@ -161,7 +161,7 @@ public class MainGameState implements StateBase
 
             if (!GameSystem.Instance.GetIsPaused())
             {
-                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 300.0f, 1000.0f, imgRadius))
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.2f, ScreenHeight * 0.925f, imgRadius))
                 {
                     // Create bin
                     BinEntity.Create("PaperBin");
@@ -169,7 +169,7 @@ public class MainGameState implements StateBase
 
                     AudioManager.Instance.PlayAudio(R.raw.paperbin);
                 }
-                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 600.0f, 1000.0f, imgRadius2))
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.35f, ScreenHeight * 0.925f, imgRadius2))
                 {
                     // Create bin
                     BinEntity.Create("PlasticBin");
@@ -177,7 +177,7 @@ public class MainGameState implements StateBase
 
                     AudioManager.Instance.PlayAudio(R.raw.plasticbin);
                 }
-                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1200.0f, 1000.0f, imgRadius3))
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.65f, ScreenHeight * 0.925f, imgRadius3))
                 {
                     // Create bin
                     BinEntity.Create("MetalBin");
@@ -185,7 +185,7 @@ public class MainGameState implements StateBase
 
                     AudioManager.Instance.PlayAudio(R.raw.metalbin);
                 }
-                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1500.0f, 1000.0f, imgRadius4))
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.8f, ScreenHeight * 0.925f, imgRadius4))
                 {
                     // Create bin
                     BinEntity.Create("OthersBin");
@@ -193,7 +193,7 @@ public class MainGameState implements StateBase
 
                     AudioManager.Instance.PlayAudio(R.raw.generalwastebin);
                 }
-                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.025f, ScreenHeight * 0.04f, imgRadius5))
                 {
 //                    gameActivity.switchScreen();
                     //GameSystem.Instance.SetIsPaused(true);
@@ -211,7 +211,7 @@ public class MainGameState implements StateBase
             {
                 if(selectedLevel == 1)
                     Tutorial.Instance.Update();
-                if (!Tutorial.Instance.isTeaching && Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
+                if (!Tutorial.Instance.isTeaching && Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.025f, ScreenHeight * 0.04f, imgRadius5))
                 {
                     //gameActivity.switchScreen();
                     //GameSystem.Instance.SetIsPaused(false);
@@ -235,13 +235,13 @@ public class MainGameState implements StateBase
         EntityManager.Instance.Render(_canvas);
 
         if(selectedLevel == 1)
-            Tutorial.Instance.Render(_canvas, 1050, 400);
+            Tutorial.Instance.Render(_canvas, ScreenWidth * 0.58f, ScreenHeight * 0.4f);
         /*
          Render the sprite here, else other stuffs will cover it
          Parameters: canvas, x position, y position
         */
         if(GameSystem.Instance.GetIsShowSprite())
-            spr.Render(_canvas, 950, 850);
+            spr.Render(_canvas, (int)(ScreenWidth * 0.55f), (int)(ScreenHeight * 0.775f));
 
         String scoreText = String.format("SCORE : %d", GameSystem.Instance.GetIntFromSave("Score"));
         Paint paint = new Paint();

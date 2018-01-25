@@ -3,6 +3,7 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 public class ButtonEntity implements EntityBase, Collidable
@@ -12,6 +13,8 @@ public class ButtonEntity implements EntityBase, Collidable
     private boolean isInit = false;
     private float xPos, yPos;
     private String Type;
+    private int ScreenWidth, ScreenHeight;
+    private Bitmap scaledbmp = null;
 
     // Collidable interface
     @Override
@@ -51,32 +54,36 @@ public class ButtonEntity implements EntityBase, Collidable
     @Override
     public void Init(SurfaceView _view)
     {
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
         // Check for 4 different rubbish type and assign respective image to bmp
-        yPos = 1000.0f;
+        yPos = ScreenHeight * 0.925f;
         switch(this.getType())
         {
             case "PaperButton":
                 bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
-                xPos = 300.0f;
+                xPos = ScreenWidth * 0.2f;
                 break;
             case "PlasticButton":
                 bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
-                xPos = 600.0f;
+                xPos = ScreenWidth * 0.35f;
                 break;
             case "MetalButton":
                 bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
-                xPos = 1200.0f;
+                xPos = ScreenWidth * 0.65f;
                 break;
             case "OthersButton":
                 bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
-                xPos = 1500.0f;
+                xPos = ScreenWidth * 0.8f;
                 break;
             case "BackButton":
                 bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
-                xPos = 45.0f;
-                yPos = 45.0f;
+                xPos = ScreenWidth * 0.025f;
+                yPos = ScreenHeight * 0.04f;
                 break;
         }
+        scaledbmp = Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(),true);
         isInit = true;
     }
 
@@ -84,7 +91,7 @@ public class ButtonEntity implements EntityBase, Collidable
     public void Update(float _dt) {}
 
     @Override
-    public void Render(Canvas _canvas) { _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null); }
+    public void Render(Canvas _canvas) { _canvas.drawBitmap(scaledbmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null); }
 
     public static ButtonEntity Create(String _Type)
     {

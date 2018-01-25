@@ -5,16 +5,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 public class GameBackground implements EntityBase
 {
     private Bitmap bmp = null;
     private boolean isDone = false;
-    private SurfaceView view = null;
-    private float xPos, yPos;
     private String Type;
     private Typeface myfont;
+    private int ScreenWidth, ScreenHeight;
+    private Bitmap scaledbmp = null;
 
     @Override
     public boolean isInit() { return bmp != null; }
@@ -40,9 +41,13 @@ public class GameBackground implements EntityBase
     @Override
     public void Init(SurfaceView _view)
     {
-        view = _view;
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.gameplay);
         myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
+
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
+        scaledbmp = Bitmap.createScaledBitmap(bmp, ScreenWidth, ScreenHeight,true);
     }
 
     @Override
@@ -51,10 +56,7 @@ public class GameBackground implements EntityBase
     @Override
     public void Render(Canvas _canvas)
     {
-        xPos = 0.5f * view.getWidth();
-        yPos = 0.5f * view.getHeight();
-
-        _canvas.drawBitmap(bmp,xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null);
+        _canvas.drawBitmap(scaledbmp,0.0f,0.0f,null);
 
         // Text on Screen
         Paint paint = new Paint();

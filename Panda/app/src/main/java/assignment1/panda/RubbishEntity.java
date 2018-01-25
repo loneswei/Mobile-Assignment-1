@@ -3,6 +3,7 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 import java.util.Random;
@@ -12,10 +13,12 @@ public class RubbishEntity implements EntityBase, Collidable
     private Bitmap bmp = null;
     private boolean isDone = false;
     private boolean isInit = false;
-    private float xPos, yPos, xDir, yDir, lifeTime, bottomYPos;
+    private float xPos, yPos, xDir, yDir, lifeTime;
     private String Type;
     private int selectedLevel;
     private int audioSFX_speechbubble = R.raw.speechbubblesound;
+    private int ScreenWidth, ScreenHeight;
+    private Bitmap scaledbmp = null;
 
     /*
     1 -> Crumpled Paper, Plastic Bag, Metal Drink Can, Banana Peel
@@ -165,13 +168,16 @@ public class RubbishEntity implements EntityBase, Collidable
                 break;
             }
         }
+        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
+        ScreenWidth = metrics.widthPixels;
+        ScreenHeight = metrics.heightPixels;
+        scaledbmp = Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(),true);
 
         lifeTime = 30.0f;
-        xPos = 750.0f;
-        yPos = 250.0f;
+        xPos = ScreenWidth * 0.43f;
+        yPos = ScreenHeight * 0.3f;
         xDir = 0.0f;
         yDir = 300.0f;
-        bottomYPos = _view.getHeight();
 
         isInit = true;
     }
@@ -186,22 +192,19 @@ public class RubbishEntity implements EntityBase, Collidable
             setIsDone(true);
 
         // Movement of Rubbishes
-        // First movement : DOWN
-        if(yPos <= 300.0f)
-            yPos += yDir * _dt;
-        // Second movement : LEFT
-        else if(yPos > 300.0f && yPos <= 600.0f && xPos >= 100.0f)
+        // First movement : LEFT
+        if(yPos <= ScreenHeight * 0.3f && xPos >= ScreenWidth * 0.08f)
         {
             xDir = 300.0f;
             xPos -= xDir * _dt;
         }
-        // Third movement : DOWN
-        else if(xPos < 100.0f && yPos <= 600.0f)
+        // Second movement : DOWN
+        else if(xPos < ScreenWidth * 0.08f && yPos <= ScreenHeight * 0.55f)
         {
             yPos += yDir * _dt;
 
             // Check position for tutorial
-            if(selectedLevel == 1 && yPos > 600.0f)
+            if(selectedLevel == 1 && yPos > ScreenHeight * 0.55f)
             {
                 switch(getType())
                 {
@@ -356,16 +359,16 @@ public class RubbishEntity implements EntityBase, Collidable
                 }
             }
         }
-        // Fourth movement : RIGHT
-        else if(yPos > 600.0f && xPos <= 850.0f)
+        // Third movement : RIGHT
+        else if(yPos > ScreenHeight * 0.55f && xPos <= ScreenWidth * 0.5f)
             xPos += xDir * _dt;
-        // Fifth movement : DOWN - Reach bin at xPos > 800.0f && yPos > 800.0f
-        else if(xPos > 850.0f && yPos <= bottomYPos)
+        // Fourth movement : DOWN - Reach bin at xPos > 800.0f && yPos > 800.0f
+        else if(xPos > ScreenWidth * 0.5f && yPos <= ScreenHeight)
             yPos += yDir * _dt;
     }
 
     @Override
-    public void Render(Canvas _canvas) { _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null); }
+    public void Render(Canvas _canvas) { _canvas.drawBitmap(scaledbmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null); }
 
     public static RubbishEntity Create(String _Type)
     {
