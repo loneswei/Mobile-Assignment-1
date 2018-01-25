@@ -107,7 +107,7 @@ public class Tutorial
         redArrow = BitmapFactory.decodeResource(_view.getResources(), R.drawable.red_arrow);
     }
 
-    public void Update(float _dt)
+    public void Update()
     {
         if(TouchManager.Instance.isDown())
         {

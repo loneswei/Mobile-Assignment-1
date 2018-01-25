@@ -11,26 +11,59 @@
 
     <Button
         android:id="@+id/btn_level"
-        android:layout_width="150dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
 
-        android:layout_centerVertical="true"
-        android:layout_marginStart="60dp"
+        android:layout_below="@+id/btn_back"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="60dp"
         android:layout_toEndOf="@+id/btn_back"
         android:background="@color/DarkGreen"
-        android:text="Level"
+        android:text="1"
         android:textColor="@color/White" />
 
     <Button
         android:id="@+id/btn_level2"
-        android:layout_width="150dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
-
-        android:layout_centerVertical="true"
-        android:layout_marginStart="70dp"
-        android:layout_toEndOf="@+id/btn_level"
+        android:layout_alignStart="@+id/btn_level"
+        android:layout_below="@+id/btn_level"
+        android:layout_marginTop="55dp"
         android:background="@color/DarkGreen"
-        android:text="Level 2"
+        android:text="2"
+        android:textColor="@color/White" />
+
+    <Button
+        android:id="@+id/btn_level4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/btn_level2"
+        android:layout_marginStart="53dp"
+        android:layout_toEndOf="@+id/btn_level2"
+        android:background="@color/DarkGreen"
+        android:text="4"
+        android:textColor="@color/White" />
+
+    <Button
+        android:id="@+id/btn_level6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/btn_level4"
+        android:layout_marginStart="53dp"
+        android:layout_toEndOf="@+id/btn_level4"
+        android:background="@color/DarkGreen"
+        android:text="6"
+        android:textColor="@color/White" />
+
+    <Button
+        android:id="@+id/btn_level8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/btn_level6"
+        android:layout_marginStart="53dp"
+        android:layout_toEndOf="@+id/btn_level6"
+        android:background="@color/DarkGreen"
+        android:text="8"
         android:textColor="@color/White" />
 
     <ImageButton

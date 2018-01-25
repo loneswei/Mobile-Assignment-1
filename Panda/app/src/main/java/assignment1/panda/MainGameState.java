@@ -24,6 +24,8 @@ public class MainGameState implements StateBase
     private Vibrator vibrator;
 
     private int selectedLevel = 0;
+    private int numOfRubbish = 0;
+    private int maxNumOfRubbish = 0;
     private SpriteAnimation spr = null;
 
     @Override
@@ -32,7 +34,6 @@ public class MainGameState implements StateBase
     @Override
     public void OnEnter(SurfaceView _view)
     {
-        selectedLevel = LevelManager.Instance.GetSelectedLevel();
         GameBackground.Create("BackGround");
         ButtonEntity.Create("PaperButton");
         ButtonEntity.Create("PlasticButton");
@@ -46,10 +47,14 @@ public class MainGameState implements StateBase
         bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
         bmpBack = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
 
+        selectedLevel = LevelManager.Instance.GetSelectedLevel();
         spawnDelay = 4.0f;
-        if(selectedLevel == 2)
+        maxNumOfRubbish = 12;
+        if(selectedLevel == 2 || selectedLevel == 4 || selectedLevel == 6 || selectedLevel == 8)
+        {
             spawnDelay = 2.0f;
-
+            maxNumOfRubbish = 20;
+        }
         vibrator = (Vibrator) _view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
         //AudioManager.Instance.PlayAudio(R.raw.background_music);
 
@@ -60,7 +65,7 @@ public class MainGameState implements StateBase
         spr = new SpriteAnimation(BitmapFactory.decodeResource(_view.getResources(), R.drawable.starsprite), 1, 3, 20);
     }
 
-    public void startVibrate()
+    private void startVibrate()
     {
         if(Build.VERSION.SDK_INT >= 26)
             vibrator.vibrate(VibrationEffect.createOneShot(150,10));
@@ -91,15 +96,42 @@ public class MainGameState implements StateBase
             // Rubbish Creation
             timer += _dt;
 
-            if (timer > spawnDelay)
+            if (numOfRubbish <= maxNumOfRubbish && timer > spawnDelay)
             {
+                numOfRubbish += 1;
                 Random ranGen = new Random();
-                int rubbishType = 0;// = ranGen.nextInt(4) + 1;
+                int rubbishType = 0;
 
-                if(selectedLevel == 1)
-                    rubbishType = ranGen.nextInt(2) + 1;
-                else if(selectedLevel == 2)
-                    rubbishType = ranGen.nextInt(4) + 1;
+                switch(selectedLevel)
+                {
+                    // Tutorial
+                    case 1:
+                        rubbishType = 1;
+                        break;
+                    case 3:
+                        rubbishType = 2;
+                        break;
+                    case 5:
+                        rubbishType = 3;
+                        break;
+                    case 7:
+                        rubbishType = 4;
+                        break;
+
+                    // Non - Tutorial
+                    case 2:
+                        rubbishType = 1;
+                        break;
+                    case 4:
+                        rubbishType = ranGen.nextInt(2) + 1;
+                        break;
+                    case 6:
+                        rubbishType = ranGen.nextInt(3) + 1;
+                        break;
+                    case 8:
+                        rubbishType = ranGen.nextInt(4) + 1;
+                        break;
+                }
                 switch (rubbishType)
                 {
                     case 1:
@@ -178,7 +210,7 @@ public class MainGameState implements StateBase
             else
             {
                 if(selectedLevel == 1)
-                    Tutorial.Instance.Update(_dt);
+                    Tutorial.Instance.Update();
                 if (!Tutorial.Instance.isTeaching && Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
                 {
                     //gameActivity.switchScreen();

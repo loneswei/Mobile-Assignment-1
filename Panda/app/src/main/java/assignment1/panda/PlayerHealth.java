@@ -43,7 +43,7 @@ public class PlayerHealth implements EntityBase
     {
         view = _view;
 
-        if(this.getType() == "Heart")
+        if(this.getType().equals("Heart"))
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.life_heart_icon);
         }

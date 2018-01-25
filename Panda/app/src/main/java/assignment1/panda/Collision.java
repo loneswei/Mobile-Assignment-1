@@ -7,12 +7,8 @@ public class Collision
         float xVec = x2 - x1;
         float yVec = y2 - y1;
         float distSquared = xVec * xVec + yVec * yVec;
-
         float rSquared = (radius1 + radius2) * (radius1 + radius2);
 
-        if(distSquared > rSquared)
-            return false;
-        else
-            return true;
+        return (distSquared < rSquared);
     }
 }

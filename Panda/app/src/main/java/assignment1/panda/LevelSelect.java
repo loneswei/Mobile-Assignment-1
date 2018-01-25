@@ -12,7 +12,8 @@ import android.widget.ImageButton;
 public class LevelSelect extends Activity implements View.OnClickListener {
 
     //define button as an object
-    private Button button_level, button_level2;
+    private Button button_level,
+            button_level2, button_level4, button_level6, button_level8;
     private ImageButton button_back;
 
     @Override
@@ -34,8 +35,15 @@ public class LevelSelect extends Activity implements View.OnClickListener {
         button_back = (ImageButton)findViewById(R.id.btn_back);
         button_back.setOnClickListener(this);
 
+        // Non - Tutorial
         button_level2 = (Button)findViewById(R.id.btn_level2);
         button_level2.setOnClickListener(this);
+        button_level4 = (Button)findViewById(R.id.btn_level4);
+        button_level4.setOnClickListener(this);
+        button_level6 = (Button)findViewById(R.id.btn_level6);
+        button_level6.setOnClickListener(this);
+        button_level8 = (Button)findViewById(R.id.btn_level8);
+        button_level8.setOnClickListener(this);
     }
     @Override
     //invoke a callback on clicked event on a view
@@ -52,8 +60,16 @@ public class LevelSelect extends Activity implements View.OnClickListener {
         {
             if(v == button_level)
                 LevelManager.Instance.SetSelectedLevel(1);
+
+            // Non - Tutorial
             else if(v == button_level2)
                 LevelManager.Instance.SetSelectedLevel(2);
+            else if(v == button_level4)
+                LevelManager.Instance.SetSelectedLevel(4);
+            else if(v == button_level6)
+                LevelManager.Instance.SetSelectedLevel(6);
+            else if(v == button_level8)
+                LevelManager.Instance.SetSelectedLevel(8);
 
             intent.setClass(this, GameActivity.class);
         }

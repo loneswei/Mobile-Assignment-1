@@ -53,33 +53,30 @@ public class ButtonEntity implements EntityBase, Collidable
     {
         // Check for 4 different rubbish type and assign respective image to bmp
         yPos = 1000.0f;
-        if(this.getType() == "PaperButton")
+        switch(this.getType())
         {
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
-            xPos = 300.0f;
+            case "PaperButton":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
+                xPos = 300.0f;
+                break;
+            case "PlasticButton":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
+                xPos = 600.0f;
+                break;
+            case "MetalButton":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
+                xPos = 1200.0f;
+                break;
+            case "OthersButton":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
+                xPos = 1500.0f;
+                break;
+            case "BackButton":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
+                xPos = 45.0f;
+                yPos = 45.0f;
+                break;
         }
-        else if(this.getType() == "PlasticButton")
-        {
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
-            xPos = 600.0f;
-        }
-        else if(this.getType() == "MetalButton")
-        {
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
-            xPos = 1200.0f;
-        }
-        else if(this.getType() == "OthersButton")
-        {
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
-            xPos = 1500.0f;
-        }
-        else if(this.getType() == "BackButton")
-        {
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
-            xPos = 45.0f;
-            yPos = 45.0f;
-        }
-
         isInit = true;
     }
 

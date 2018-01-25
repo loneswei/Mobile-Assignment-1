@@ -27,10 +27,10 @@ public class BinEntity implements EntityBase, Collidable
     public void onHit(Collidable _other)
     {
         EntityBase otherEntity = (EntityBase) _other;
-        if(otherEntity.getType() == "PaperBin" ||
-                otherEntity.getType() == "PlasticBin" ||
-                otherEntity.getType() == "MetalBin" ||
-                otherEntity.getType() == "OthersBin")
+        if(otherEntity.getType().equals("PaperBin") ||
+                otherEntity.getType().equals("PlasticBin") ||
+                otherEntity.getType().equals("MetalBin") ||
+                otherEntity.getType().equals("OthersBin"))
         {
             otherEntity.setIsDone(true);
             setIsDone(false);
@@ -63,14 +63,21 @@ public class BinEntity implements EntityBase, Collidable
     public void Init(SurfaceView _view)
     {
         // Check for 4 different rubbish type and assign respective image to bmp
-        if(this.getType() == "PaperBin")
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
-        else if(this.getType() == "PlasticBin")
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
-        else if(this.getType() == "MetalBin")
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
-        else if(this.getType() == "OthersBin")
-            bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
+        switch(this.getType())
+        {
+            case "PaperBin":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
+                break;
+            case "PlasticBin":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
+                break;
+            case "MetalBin":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
+                break;
+            case "OthersBin":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
+                break;
+        }
         xPos = 900.0f;
         yPos = 1000.0f;
 

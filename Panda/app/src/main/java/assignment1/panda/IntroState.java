@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
 
 public class IntroState implements StateBase
