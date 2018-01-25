@@ -125,11 +125,13 @@ public class MainGameState implements StateBase
         {
             float imgRadius = bmpPaperBin.getHeight() * 0.5f;
             float imgRadius2 = bmpPlasticBin.getHeight() * 0.5f;
+            float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
+            float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
             float imgRadius5 = bmpBack.getHeight() * 0.5f;
 
             if (!GameSystem.Instance.GetIsPaused())
             {
-                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 300.0f, imgRadius))
+                if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 300.0f, 1000.0f, imgRadius))
                 {
                     // Create bin
                     BinEntity.Create("PaperBin");
@@ -137,7 +139,7 @@ public class MainGameState implements StateBase
 
                     AudioManager.Instance.PlayAudio(R.raw.paperbin);
                 }
-                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 500.0f, imgRadius2))
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 600.0f, 1000.0f, imgRadius2))
                 {
                     // Create bin
                     BinEntity.Create("PlasticBin");
@@ -145,41 +147,33 @@ public class MainGameState implements StateBase
 
                     AudioManager.Instance.PlayAudio(R.raw.plasticbin);
                 }
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1200.0f, 1000.0f, imgRadius3)) {
+                    // Create bin
+                    BinEntity.Create("MetalBin");
+                    startVibrate();
+
+                    AudioManager.Instance.PlayAudio(R.raw.metalbin);
+                }
+                else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1500.0f, 1000.0f, imgRadius4))
+                {
+                    // Create bin
+                    BinEntity.Create("OthersBin");
+                    startVibrate();
+
+                    AudioManager.Instance.PlayAudio(R.raw.generalwastebin);
+                }
                 else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 45.0f, 45.0f, imgRadius5))
                 {
 //                    gameActivity.switchScreen();
                     //GameSystem.Instance.SetIsPaused(true);
 
-                    if(PauseConfirmDialogFragment.IsShown)
+                    if (PauseConfirmDialogFragment.IsShown)
                         return;
 
                     PauseConfirmDialogFragment newPauseConfirmation = new PauseConfirmDialogFragment();
                     newPauseConfirmation.show(GameSystem.Instance.gameActivity.getFragmentManager(), "PauseConfirm");
 
                     AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
-                }
-
-                if(selectedLevel == 2)
-                {
-                    float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
-                    float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
-
-                    if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 700.0f, imgRadius3))
-                    {
-                        // Create bin
-                        BinEntity.Create("MetalBin");
-                        startVibrate();
-
-                        AudioManager.Instance.PlayAudio(R.raw.metalbin);
-                    }
-                    else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, 1700.0f, 900.0f, imgRadius4))
-                    {
-                        // Create bin
-                        BinEntity.Create("OthersBin");
-                        startVibrate();
-
-                        AudioManager.Instance.PlayAudio(R.raw.generalwastebin);
-                    }
                 }
             }
             else
@@ -190,11 +184,11 @@ public class MainGameState implements StateBase
                     //gameActivity.switchScreen();
                     //GameSystem.Instance.SetIsPaused(false);
 
-//                    if(PauseConfirmDialogFragment.IsShown)
-//                        return;
-//
-//                    PauseConfirmDialogFragment newPauseConfirmation = new PauseConfirmDialogFragment();
-//                    newPauseConfirmation.show(GameSystem.Instance.gameActivity.getFragmentManager(), "PauseConfirm");
+                    if(PauseConfirmDialogFragment.IsShown)
+                        return;
+
+                    PauseConfirmDialogFragment newPauseConfirmation = new PauseConfirmDialogFragment();
+                    newPauseConfirmation.show(GameSystem.Instance.gameActivity.getFragmentManager(), "PauseConfirm");
 
                     AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 }

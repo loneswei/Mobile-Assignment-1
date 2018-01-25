@@ -52,26 +52,26 @@ public class ButtonEntity implements EntityBase, Collidable
     public void Init(SurfaceView _view)
     {
         // Check for 4 different rubbish type and assign respective image to bmp
-        xPos = 1700.0f;
+        yPos = 1000.0f;
         if(this.getType() == "PaperButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
-            yPos = 300.0f;
+            xPos = 300.0f;
         }
         else if(this.getType() == "PlasticButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
-            yPos = 500.0f;
+            xPos = 600.0f;
         }
         else if(this.getType() == "MetalButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
-            yPos = 700.0f;
+            xPos = 1200.0f;
         }
         else if(this.getType() == "OthersButton")
         {
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
-            yPos = 900.0f;
+            xPos = 1500.0f;
         }
         else if(this.getType() == "BackButton")
         {

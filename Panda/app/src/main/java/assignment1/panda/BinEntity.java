@@ -69,7 +69,7 @@ public class BinEntity implements EntityBase, Collidable
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
         else if(this.getType() == "OthersBin")
             bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
-        xPos = 850.0f;
+        xPos = 900.0f;
         yPos = 1000.0f;
 
         isInit = true;
