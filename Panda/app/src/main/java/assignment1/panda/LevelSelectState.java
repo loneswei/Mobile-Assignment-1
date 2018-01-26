@@ -94,6 +94,8 @@ public class LevelSelectState implements StateBase
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 // Tutorial Level 1, Paper.
+                LevelManager.Instance.SetSelectedLevel(1);
+                StateManager.Instance.ChangeState("MainGame");
             }
             // Level 2 Button
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.39f, ScreenHeight * 0.45f, imgRadius2))
@@ -107,6 +109,8 @@ public class LevelSelectState implements StateBase
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 // Tutorial Level 3, Plastic.
+                LevelManager.Instance.SetSelectedLevel(3);
+                StateManager.Instance.ChangeState("MainGame");
             }
             // Level 4 Button
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.79f, ScreenHeight * 0.45f, imgRadius4))
@@ -120,6 +124,8 @@ public class LevelSelectState implements StateBase
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 // Tutorial Level 5, Metal.
+                LevelManager.Instance.SetSelectedLevel(5);
+                StateManager.Instance.ChangeState("MainGame");
             }
             // Level 6 Button
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.39f, ScreenHeight * 0.65f, imgRadius6))
@@ -132,7 +138,9 @@ public class LevelSelectState implements StateBase
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.59f, ScreenHeight * 0.65f, imgRadius7))
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
-                // Tutorial Level, others.
+                // Tutorial Level 7, others.
+                LevelManager.Instance.SetSelectedLevel(7);
+                StateManager.Instance.ChangeState("MainGame");
             }
             // Level 8 Button
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.79f, ScreenHeight * 0.65f, imgRadius8))

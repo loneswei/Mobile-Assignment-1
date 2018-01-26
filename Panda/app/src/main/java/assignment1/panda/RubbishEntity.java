@@ -204,7 +204,7 @@ public class RubbishEntity implements EntityBase, Collidable
             yPos += yDir * _dt;
 
             // Check position for tutorial
-            if(selectedLevel == 1 && yPos > ScreenHeight * 0.55f)
+            if((selectedLevel == 1 || selectedLevel == 3 || selectedLevel == 5 || selectedLevel == 7) && yPos > ScreenHeight * 0.55f)
             {
                 switch(getType())
                 {

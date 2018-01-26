@@ -209,7 +209,7 @@ public class MainGameState implements StateBase
             }
             else
             {
-                if(selectedLevel == 1)
+                if(selectedLevel == 1 || selectedLevel == 3 || selectedLevel == 5 || selectedLevel == 7)
                     Tutorial.Instance.Update();
                 if (!Tutorial.Instance.isTeaching && Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.025f, ScreenHeight * 0.04f, imgRadius5))
                 {
@@ -234,7 +234,7 @@ public class MainGameState implements StateBase
     {
         EntityManager.Instance.Render(_canvas);
 
-        if(selectedLevel == 1)
+        if(selectedLevel == 1 || selectedLevel == 3 || selectedLevel == 5 || selectedLevel == 7)
             Tutorial.Instance.Render(_canvas, ScreenWidth * 0.58f, ScreenHeight * 0.4f);
         /*
          Render the sprite here, else other stuffs will cover it
