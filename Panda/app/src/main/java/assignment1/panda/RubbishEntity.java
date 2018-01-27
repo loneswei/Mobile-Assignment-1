@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceView;
 
 import java.util.Random;
@@ -19,12 +20,14 @@ public class RubbishEntity implements EntityBase, Collidable
     private int audioSFX_speechbubble = R.raw.speechbubblesound;
     private int ScreenWidth, ScreenHeight;
     private Bitmap scaledbmp = null;
+    private int health;
+
 
     /*
-    1 -> Crumpled Paper, Plastic Bag, Metal Drink Can, Banana Peel
-    2 -> Newspaper, Plastic Bottle, Metal Food Can, Eaten Apple
-    3 -> Milk Carton, Plastic Spray Bottle, Metal Spray Can, ToothBrush
-     */
+        1 -> Crumpled Paper, Plastic Bag, Metal Drink Can, Banana Peel
+        2 -> Newspaper, Plastic Bottle, Metal Food Can, Eaten Apple
+        3 -> Milk Carton, Plastic Spray Bottle, Metal Spray Can, ToothBrush
+         */
     private int rubbishType = 0;
 
     // Collidable interface
@@ -61,14 +64,30 @@ public class RubbishEntity implements EntityBase, Collidable
         }
         else
         {
-            for(EntityBase currEntity : EntityManager.Instance.getEntityList())
+            if((this.getType().equals("Paper")  || otherEntity.getType().equals("PaperBin")) ||
+                    (this.getType().equals("Plastic") || otherEntity.getType().equals("PlasticBin")) ||
+                    (this.getType().equals("Metal") || otherEntity.getType().equals("MetalBin")) ||
+                    (this.getType().equals("Others") || otherEntity.getType().equals("OthersBin")))
             {
-                if(currEntity.getType().equals("Heart"))
+                setIsDone(true);
+                otherEntity.setIsDone(true);
+
+                for(EntityBase currEntity : EntityManager.Instance.getEntityList())
                 {
-                    currEntity.setIsDone(true);
-                    break;
+                    if(currEntity.getType().equals("Heart3") || currEntity.getType().equals("Heart2") ||
+                            currEntity.getType().equals("Heart1"))
+                    {
+                        currEntity.setIsDone(true);
+                        break;
+                    }
                 }
+
+                // Play warning audio here
             }
+
+            health = PlayerHealth.Instance.getHP();
+            health -=1;
+            PlayerHealth.Instance.setHP(health);
         }
     }
 
@@ -365,6 +384,27 @@ public class RubbishEntity implements EntityBase, Collidable
         // Fourth movement : DOWN - Reach bin at xPos > 800.0f && yPos > 800.0f
         else if(xPos > ScreenWidth * 0.5f && yPos <= ScreenHeight)
             yPos += yDir * _dt;
+
+        // Check if Rubbish is still there but no bins were pressed.
+        if(yPos >= ScreenHeight)
+        {
+            setIsDone(true);
+
+            for(EntityBase currEntity : EntityManager.Instance.getEntityList())
+            {
+                if(currEntity.getType().equals("Heart3") || currEntity.getType().equals("Heart2") ||
+                        currEntity.getType().equals("Heart1"))
+                {
+                    currEntity.setIsDone(true);
+                    break;
+                }
+            }
+
+            health = PlayerHealth.Instance.getHP();
+            health -=1;
+            PlayerHealth.Instance.setHP(health);
+            // Play Warning Audio here
+        }
     }
 
     @Override

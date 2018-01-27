@@ -3,7 +3,9 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.os.Debug;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceView;
 
 public class Tutorial
@@ -224,6 +226,7 @@ public class Tutorial
             }
         }
     }
+
     public void Render(Canvas _canvas, float xPos, float yPos)
     {
         if(teachCrumpledPaper || teachNewsPaper || teachMilkCarton || teachPlasticBag || teachPlasticBottle || teachPlasticSprayBottle ||
@@ -277,6 +280,7 @@ public class Tutorial
                 _canvas.drawBitmap(toothBrushTutorial, xPos - toothBrushTutorial.getWidth() * 0.5f, yPos - toothBrushTutorial.getHeight() * 0.5f, null);
         }
     }
+
     //-------------------------------------------------------------------------------------------------------------------
 
     public boolean IsFirstCrumpledPaper() { return firstCrumpledPaper; }

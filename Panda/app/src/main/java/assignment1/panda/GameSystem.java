@@ -30,6 +30,8 @@ public class GameSystem
         StateManager.Instance.AddState(new MainMenuState());
         StateManager.Instance.AddState(new LevelSelectState());
         StateManager.Instance.AddState(new OptionState());
+        StateManager.Instance.AddState(new LoseState());
+        StateManager.Instance.AddState(new WinState());
     }
 
     public void Update(float _dt)

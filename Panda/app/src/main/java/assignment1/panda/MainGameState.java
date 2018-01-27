@@ -29,6 +29,7 @@ public class MainGameState implements StateBase
     private int maxNumOfRubbish = 0;
     private SpriteAnimation spr = null;
     private int ScreenWidth, ScreenHeight;
+    private int health = 3;
 
     @Override
     public String GetName() { return "MainGame"; }
@@ -42,7 +43,7 @@ public class MainGameState implements StateBase
         ButtonEntity.Create("MetalButton");
         ButtonEntity.Create("OthersButton");
         ButtonEntity.Create("BackButton");
-        PlayerHealth.Create("Heart");
+
         bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
         bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
         bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
@@ -52,6 +53,13 @@ public class MainGameState implements StateBase
         selectedLevel = LevelManager.Instance.GetSelectedLevel();
         spawnDelay = 4.0f;
         maxNumOfRubbish = 12;
+
+        // Player Health
+        PlayerHealth.Create("Heart3");
+        PlayerHealth.Create("Heart2");
+        PlayerHealth.Create("Heart1");
+        PlayerHealth.Instance.setHP(health);
+
         if(selectedLevel == 2 || selectedLevel == 4 || selectedLevel == 6 || selectedLevel == 8)
         {
             spawnDelay = 2.0f;
@@ -148,6 +156,18 @@ public class MainGameState implements StateBase
                         break;
                 }
                 timer = 0.0f;
+            }
+            // When all rubbish are gone.
+            else if(PlayerHealth.Instance.getHP() > 0 && numOfRubbish == maxNumOfRubbish)
+            {
+                // Go to Win Screen
+                StateManager.Instance.ChangeState("Win");
+            }
+
+            // If Health is 0, go to Lose Screen
+            if(PlayerHealth.Instance.getHP() <= 0)
+            {
+                StateManager.Instance.ChangeState("Lose");
             }
         }
 
