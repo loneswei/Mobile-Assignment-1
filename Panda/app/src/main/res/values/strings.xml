@@ -7,4 +7,7 @@
     <string name="Play">Play</string>
     <string name="Option">Option</string>
 
+    <!-- App ID -->
+    <string name="appID">547997205570346</string>
+
 </resources>

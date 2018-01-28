@@ -50,7 +50,7 @@ public class LoseState implements StateBase
         // Checking if there's any touch on the back button
         if (TouchManager.Instance.isDown())
         {
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.375f, ScreenHeight * 0.55f, imgRadius))
+            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.475f, ScreenHeight * 0.55f, imgRadius))
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 // Go back to MainMenu

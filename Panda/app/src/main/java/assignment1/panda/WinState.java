@@ -57,13 +57,23 @@ public class WinState implements StateBase
         // Checking if there's any touch on the back button
         if (TouchManager.Instance.isDown())
         {
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.275f, ScreenHeight * 0.55f, imgRadius))
+            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.375f, ScreenHeight * 0.55f, imgRadius) &&
+                    LevelManager.Instance.GetSelectedLevel() < 8)
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 // Go back to MainMenu
                 StateManager.Instance.ChangeState("MainMenu");
             }
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.59f, ScreenHeight * 0.55f, imgRadius2))
+            else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.575f, ScreenHeight * 0.55f, imgRadius) &&
+                    LevelManager.Instance.GetSelectedLevel() == 8)
+            {
+                AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
+                // Go back to MainMenu
+                StateManager.Instance.ChangeState("MainMenu");
+            }
+
+            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.59f, ScreenHeight * 0.55f, imgRadius2) &&
+                    LevelManager.Instance.GetSelectedLevel() != 8)
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 // Go to Next Level
@@ -84,17 +94,30 @@ public class WinState implements StateBase
         backgroundTransform.setScale(10 ,10);
         _canvas.drawBitmap(bmp, backgroundTransform, null);
 
-        // Back Button
-        Matrix ButtonTransform = new Matrix();
-        ButtonTransform.setTranslate(ScreenWidth * 0.35f, ScreenHeight * 0.5f);
-        _canvas.drawBitmap(bmpBackButton, ButtonTransform, null);
+        if(LevelManager.Instance.GetSelectedLevel() < 8)
+        {
+            // Back Button
+            Matrix ButtonTransform = new Matrix();
+            ButtonTransform.setTranslate(ScreenWidth * 0.35f, ScreenHeight * 0.5f);
+            _canvas.drawBitmap(bmpBackButton, ButtonTransform, null);
+        }
+        else
+        {
+            // Back Button
+            Matrix ButtonTransform = new Matrix();
+            ButtonTransform.setTranslate(ScreenWidth * 0.55f, ScreenHeight * 0.5f);
+            _canvas.drawBitmap(bmpBackButton, ButtonTransform, null);
+        }
 
-        // Continue Button
-        ButtonTransform = new Matrix();
-        ButtonTransform.setTranslate(ScreenWidth * 0.55f, ScreenHeight * 0.5f);
-        _canvas.drawBitmap(bmpContinueButton, ButtonTransform, null);
+        if(LevelManager.Instance.GetSelectedLevel() != 8)
+        {
+            // Continue Button
+            Matrix ButtonTransform = new Matrix();
+            ButtonTransform.setTranslate(ScreenWidth * 0.55f, ScreenHeight * 0.5f);
+            _canvas.drawBitmap(bmpContinueButton, ButtonTransform, null);
+        }
 
-        // Lose Message
+        // Win Message
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(100);
