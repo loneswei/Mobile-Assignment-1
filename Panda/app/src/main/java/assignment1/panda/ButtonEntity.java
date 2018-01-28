@@ -77,8 +77,8 @@ public class ButtonEntity implements EntityBase, Collidable
                 bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
                 xPos = ScreenWidth * 0.8f;
                 break;
-            case "BackButton":
-                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
+            case "PauseButton":
+                bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.pausebutton);
                 xPos = ScreenWidth * 0.025f;
                 yPos = ScreenHeight * 0.04f;
                 break;

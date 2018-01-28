@@ -12,4 +12,29 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btn_fbLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/btn_fbProfilePic"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+    </com.facebook.login.widget.ProfilePictureView>
+
+    <Button
+        android:id="@+id/btn_share"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/fbicon"
+        android:layout_below="@+id/btn_fbProfilePic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp" />
+
+
 </RelativeLayout>

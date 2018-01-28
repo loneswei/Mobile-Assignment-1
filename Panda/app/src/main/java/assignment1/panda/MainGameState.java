@@ -21,7 +21,7 @@ public class MainGameState implements StateBase
     private Bitmap bmpPlasticBin = null;
     private Bitmap bmpMetalBin = null;
     private Bitmap bmpOthersBin = null;
-    private Bitmap bmpBack = null;
+    private Bitmap bmpPause = null;
     private Vibrator vibrator;
 
     private int selectedLevel = 0;
@@ -42,13 +42,15 @@ public class MainGameState implements StateBase
         ButtonEntity.Create("PlasticButton");
         ButtonEntity.Create("MetalButton");
         ButtonEntity.Create("OthersButton");
-        ButtonEntity.Create("BackButton");
+        ButtonEntity.Create("PauseButton");
+
+        GameSystem.Instance.SetIsPaused(false);
 
         bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
         bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
         bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
         bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
-        bmpBack = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
+        bmpPause = BitmapFactory.decodeResource(_view.getResources(), R.drawable.pausebutton);
 
         selectedLevel = LevelManager.Instance.GetSelectedLevel();
         spawnDelay = 4.0f;
@@ -92,6 +94,7 @@ public class MainGameState implements StateBase
     public void OnExit()
     {
         EntityManager.Instance.getEntityList().clear();
+        numOfRubbish = 0;
     }
 
     @Override
@@ -181,7 +184,7 @@ public class MainGameState implements StateBase
             float imgRadius2 = bmpPlasticBin.getHeight() * 0.5f;
             float imgRadius3 = bmpMetalBin.getHeight() * 0.5f;
             float imgRadius4 = bmpOthersBin.getHeight() * 0.5f;
-            float imgRadius5 = bmpBack.getHeight() * 0.5f;
+            float imgRadius5 = bmpPause.getHeight() * 0.5f;
 
             if (!GameSystem.Instance.GetIsPaused())
             {
@@ -217,10 +220,11 @@ public class MainGameState implements StateBase
 
                     AudioManager.Instance.PlayAudio(R.raw.generalwastebin);
                 }
+                // Press Pause Button
                 else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.025f, ScreenHeight * 0.04f, imgRadius5))
                 {
-//                    gameActivity.switchScreen();
-                    //GameSystem.Instance.SetIsPaused(true);
+                    AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
+                    GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
 
                     if (PauseConfirmDialogFragment.IsShown)
                         return;
@@ -228,20 +232,19 @@ public class MainGameState implements StateBase
                     PauseConfirmDialogFragment newPauseConfirmation = new PauseConfirmDialogFragment();
                     newPauseConfirmation.show(GameSystem.Instance.gameActivity.getFragmentManager(), "PauseConfirm");
 
-                    AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 }
             }
+            // Press Pause Button
             else
             {
                 if(selectedLevel == 1 || selectedLevel == 3 || selectedLevel == 5 || selectedLevel == 7)
                     Tutorial.Instance.Update();
                 if (!Tutorial.Instance.isTeaching && Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.025f, ScreenHeight * 0.04f, imgRadius5))
                 {
-                    //gameActivity.switchScreen();
-                    //GameSystem.Instance.SetIsPaused(false);
+                    //GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
 
                     if(PauseConfirmDialogFragment.IsShown)
-                        return;
+                       return;
 
                     PauseConfirmDialogFragment newPauseConfirmation = new PauseConfirmDialogFragment();
                     newPauseConfirmation.show(GameSystem.Instance.gameActivity.getFragmentManager(), "PauseConfirm");
@@ -267,10 +270,10 @@ public class MainGameState implements StateBase
         if(GameSystem.Instance.GetIsShowSprite())
             spr.Render(_canvas, (int)(ScreenWidth * 0.55f), (int)(ScreenHeight * 0.775f));
 
-        String scoreText = String.format("SCORE : %d", GameSystem.Instance.GetIntFromSave("Score"));
+        /*String scoreText = String.format("SCORE : %d", GameSystem.Instance.GetIntFromSave("Score"));
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(64);
-        _canvas.drawText(scoreText, 10, 220,paint);
+        _canvas.drawText(scoreText, 10, 220,paint); */
     }
 }

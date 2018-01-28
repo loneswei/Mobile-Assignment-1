@@ -13,7 +13,6 @@ public class GameBackground implements EntityBase
     private Bitmap bmp = null;
     private boolean isDone = false;
     private String Type;
-    private Typeface myfont;
     private int ScreenWidth, ScreenHeight;
     private Bitmap scaledbmp = null;
 
@@ -42,7 +41,6 @@ public class GameBackground implements EntityBase
     public void Init(SurfaceView _view)
     {
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.gameplay);
-        myfont = Typeface.createFromAsset(_view.getContext().getAssets(), "fonts/Gemcut.otf");
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
@@ -57,17 +55,6 @@ public class GameBackground implements EntityBase
     public void Render(Canvas _canvas)
     {
         _canvas.drawBitmap(scaledbmp,0.0f,0.0f,null);
-
-        // Text on Screen
-        Paint paint = new Paint();
-        paint.setARGB(255,100,0,0);
-        paint.setStrokeWidth(200);
-        paint.setTextSize(100.0f);
-        paint.setTypeface(myfont);
-        if(!GameSystem.Instance.GetIsPaused())
-            _canvas.drawText("Playing", 300,800,paint);
-        else
-            _canvas.drawText("Paused", 300,800,paint);
     }
 
     public static GameBackground Create(String _Type)

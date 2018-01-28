@@ -31,7 +31,7 @@ public class LoseState implements StateBase
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.level_select);
         // Back Button
         // Need to change to a better image
-        bmpBackButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
+        bmpBackButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.backbutton);
 
         // Display Metrics
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -45,16 +45,16 @@ public class LoseState implements StateBase
     @Override
     public void Update(float _dt)
     {
-        float imgRadius = bmpBackButton.getHeight() * 0.5f;
+        float imgRadius = bmpBackButton.getWidth() * 0.5f;
 
         // Checking if there's any touch on the back button
         if (TouchManager.Instance.isDown())
         {
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.475f, ScreenHeight * 0.55f, imgRadius))
+            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.495f, ScreenHeight * 0.55f, imgRadius))
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 // Go back to MainMenu
-                StateManager.Instance.ChangeState("MainMenu");
+                // StateManager.Instance.ChangeState("MainMenu");
             }
         }
     }
@@ -78,7 +78,7 @@ public class LoseState implements StateBase
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(100);
-        _canvas.drawText(loseMessage, 500, 400, paint);
+        _canvas.drawText(loseMessage, 590, 400, paint);
 
     }
 }

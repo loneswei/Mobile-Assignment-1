@@ -34,10 +34,10 @@ public class WinState implements StateBase
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.level_select);
         // Back Button
         // Need to change to a better image
-        bmpBackButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
+        bmpBackButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.backbutton);
         // Continue Button
         // Need to change this too.
-        bmpContinueButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.playbutton);
+        bmpContinueButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.continuebutton);
 
         // Display Metrics
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -51,20 +51,21 @@ public class WinState implements StateBase
     @Override
     public void Update(float _dt)
     {
-        float imgRadius = bmpBackButton.getHeight() * 0.5f;
+        float imgRadius = bmpBackButton.getWidth() * 0.5f;
         float imgRadius2 = bmpContinueButton.getWidth() * 0.5f;
 
         // Checking if there's any touch on the back button
         if (TouchManager.Instance.isDown())
         {
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.375f, ScreenHeight * 0.55f, imgRadius) &&
+            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.395f, ScreenHeight * 0.55f, imgRadius) &&
                     LevelManager.Instance.GetSelectedLevel() < 8)
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 // Go back to MainMenu
                 StateManager.Instance.ChangeState("MainMenu");
             }
-            else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.575f, ScreenHeight * 0.55f, imgRadius) &&
+            // If it is Level 8 - Last level.
+            else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.49f, ScreenHeight * 0.55f, imgRadius) &&
                     LevelManager.Instance.GetSelectedLevel() == 8)
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
@@ -72,7 +73,7 @@ public class WinState implements StateBase
                 StateManager.Instance.ChangeState("MainMenu");
             }
 
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.59f, ScreenHeight * 0.55f, imgRadius2) &&
+            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.595f, ScreenHeight * 0.55f, imgRadius2) &&
                     LevelManager.Instance.GetSelectedLevel() != 8)
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
@@ -101,11 +102,12 @@ public class WinState implements StateBase
             ButtonTransform.setTranslate(ScreenWidth * 0.35f, ScreenHeight * 0.5f);
             _canvas.drawBitmap(bmpBackButton, ButtonTransform, null);
         }
+        // If it is level 8 - last level
         else
         {
             // Back Button
             Matrix ButtonTransform = new Matrix();
-            ButtonTransform.setTranslate(ScreenWidth * 0.55f, ScreenHeight * 0.5f);
+            ButtonTransform.setTranslate(ScreenWidth * 0.45f, ScreenHeight * 0.5f);
             _canvas.drawBitmap(bmpBackButton, ButtonTransform, null);
         }
 

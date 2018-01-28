@@ -1,5 +1,7 @@
 package assignment1.panda;
 
+import android.app.VoiceInteractor;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -28,8 +30,8 @@ public class MainMenuState implements StateBase
         bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.mainmenu_background);
         // Play Button
         bmpPlayButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.playbutton);
-        // Option Button
-        bmpOptionsButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.optionbutton);
+        // Share Button
+        bmpOptionsButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.sharebutton);
 
         // Display Metrics
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -55,11 +57,12 @@ public class MainMenuState implements StateBase
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 StateManager.Instance.ChangeState("LevelSelect");
             }
-            // Option Button
+            // Share Button
             if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.85f, ScreenHeight * 0.8f, imgRadius2))
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
-                StateManager.Instance.ChangeState("Options");
+                GameSystem.Instance.gameActivity.switchScreen();
+                // StateManager.Instance.ChangeState("Options");
             }
         }
     }
