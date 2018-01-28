@@ -89,7 +89,11 @@ public class MainGameState implements StateBase
         }
     }
     @Override
-    public void OnExit(){}
+    public void OnExit()
+    {
+        EntityManager.Instance.getEntityList().clear();
+    }
+
     @Override
     public void Update(float _dt)
     {
