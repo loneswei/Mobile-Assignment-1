@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+// This is done by Wong Shih Wei.
 public class ButtonEntity implements EntityBase, Collidable
 {
     private Bitmap bmp = null;
@@ -14,7 +15,6 @@ public class ButtonEntity implements EntityBase, Collidable
     private float xPos, yPos;
     private String Type;
     private int ScreenWidth, ScreenHeight;
-    private Bitmap scaledbmp = null;
 
     // Collidable interface
     @Override
@@ -57,6 +57,7 @@ public class ButtonEntity implements EntityBase, Collidable
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
+
         // Check for 4 different rubbish type and assign respective image to bmp
         yPos = ScreenHeight * 0.925f;
         switch(this.getType())
@@ -77,13 +78,13 @@ public class ButtonEntity implements EntityBase, Collidable
                 bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
                 xPos = ScreenWidth * 0.8f;
                 break;
+            // This is for GamePlay, Pause button. - Done by Liang Li.
             case "PauseButton":
                 bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.pausebutton);
                 xPos = ScreenWidth * 0.025f;
                 yPos = ScreenHeight * 0.04f;
                 break;
         }
-        scaledbmp = Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(),true);
         isInit = true;
     }
 
@@ -91,7 +92,7 @@ public class ButtonEntity implements EntityBase, Collidable
     public void Update(float _dt) {}
 
     @Override
-    public void Render(Canvas _canvas) { _canvas.drawBitmap(scaledbmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null); }
+    public void Render(Canvas _canvas) { _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null); }
 
     public static ButtonEntity Create(String _Type)
     {

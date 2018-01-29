@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+// This is done by Wong Shih Wei.
 public class EntityManager
 {
     public final static EntityManager Instance = new EntityManager();

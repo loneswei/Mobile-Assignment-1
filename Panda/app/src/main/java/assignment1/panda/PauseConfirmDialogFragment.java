@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+// This is done by Wong Shih Wei
 public class PauseConfirmDialogFragment extends DialogFragment
 {
     public static boolean IsShown = false;

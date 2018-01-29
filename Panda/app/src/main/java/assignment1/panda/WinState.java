@@ -1,6 +1,5 @@
 package assignment1.panda;
 
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,9 +9,9 @@ import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+// This is done by Goh Liang Li
 public class WinState implements StateBase
 {
-
     private int ScreenWidth, ScreenHeight;
 
     // Background
@@ -22,7 +21,9 @@ public class WinState implements StateBase
     // Continue Button
     private Bitmap bmpContinueButton = null;
     // Lose Message
-    private String winMessage = "Yay, you have won!";
+    private String winMessage = "Yay! You have won!";
+
+    private Bitmap scaledbmp = null;
 
     @Override
     public String GetName() { return "Win"; }
@@ -31,18 +32,18 @@ public class WinState implements StateBase
     public void OnEnter(SurfaceView _view)
     {
         // Win & Lose Background
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.level_select);
+        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.losewin_screen);
         // Back Button
-        // Need to change to a better image
         bmpBackButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.backbutton);
         // Continue Button
-        // Need to change this too.
         bmpContinueButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.continuebutton);
 
         // Display Metrics
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
+
+        scaledbmp = Bitmap.createScaledBitmap(bmp, ScreenWidth, ScreenHeight,true);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class WinState implements StateBase
                 // Go back to MainMenu
                 StateManager.Instance.ChangeState("MainMenu");
             }
-            // If it is Level 8 - Last level.
+            // If it is Level 8, the back button is on a different position.
             else if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.49f, ScreenHeight * 0.55f, imgRadius) &&
                     LevelManager.Instance.GetSelectedLevel() == 8)
             {
@@ -92,8 +93,7 @@ public class WinState implements StateBase
         // Background
         Matrix backgroundTransform = new Matrix();
         backgroundTransform.setTranslate(ScreenWidth * -0.05f, ScreenHeight * -0.05f);
-        backgroundTransform.setScale(10 ,10);
-        _canvas.drawBitmap(bmp, backgroundTransform, null);
+        _canvas.drawBitmap(scaledbmp, backgroundTransform, null);
 
         if(LevelManager.Instance.GetSelectedLevel() < 8)
         {
@@ -102,7 +102,7 @@ public class WinState implements StateBase
             ButtonTransform.setTranslate(ScreenWidth * 0.35f, ScreenHeight * 0.5f);
             _canvas.drawBitmap(bmpBackButton, ButtonTransform, null);
         }
-        // If it is level 8 - last level
+        // If it is level 8, back button is different position.
         else
         {
             // Back Button

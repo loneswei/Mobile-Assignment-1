@@ -5,6 +5,7 @@ import android.view.SurfaceView;
 
 import java.util.HashMap;
 
+// This is done by Wong Shih Wei
 public class StateManager
 {
     public final static StateManager Instance  = new StateManager();

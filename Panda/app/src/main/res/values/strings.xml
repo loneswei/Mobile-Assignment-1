@@ -10,4 +10,8 @@
     <!-- App ID -->
     <string name="appID">547997205570346</string>
 
+    <!-- Share Game Message -->
+    <string name="ShareMessage">Do you want to share this game on Facebook?</string>
+    <string name="ThankYouMessage">Thank you for playing Panda.</string>
+
 </resources>

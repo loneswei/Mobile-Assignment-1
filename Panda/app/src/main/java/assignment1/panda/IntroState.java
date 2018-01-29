@@ -3,10 +3,10 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+// This is done by Goh Liang Li.
 public class IntroState implements StateBase
 {
     private float timer = 5.0f;

@@ -3,33 +3,16 @@ package assignment1.panda;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.util.DisplayMetrics;
-import android.view.SurfaceView;
-
-
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -49,7 +32,7 @@ import com.facebook.share.model.SharePhotoContent;
 import java.util.Arrays;
 import java.util.List;
 
-
+// This is done by Goh Liang Li.
 public class OptionState extends Activity implements OnClickListener
 {
     private ImageButton btn_back;
@@ -144,10 +127,6 @@ public class OptionState extends Activity implements OnClickListener
         });
     }
 
-
-
-
-
     @Override
     public void onClick(View v)
     {
@@ -160,7 +139,7 @@ public class OptionState extends Activity implements OnClickListener
         else if(v == btn_share)
         {
             AlertDialog.Builder _alertBuilder = new AlertDialog.Builder(OptionState.this);
-            _alertBuilder.setMessage("Do you want to share this game on Facebook?");
+            _alertBuilder.setMessage("@string/ShareMessage");
             _alertBuilder.setCancelable(false);
 
             _alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
@@ -194,7 +173,7 @@ public class OptionState extends Activity implements OnClickListener
         // Indicate what to share
         SharePhoto photo = new SharePhoto.Builder()
                 .setBitmap(image)
-                .setCaption("Thank you for playing Panda.")
+                .setCaption("@string/ThankYouMessage")
                 .build();
 
         // Share it out
@@ -228,71 +207,3 @@ public class OptionState extends Activity implements OnClickListener
         super.onStop();
     }
 }
-
-
-/*
-public class OptionState implements StateBase
-{
-    private int ScreenWidth, ScreenHeight;
-
-    // Background
-    private Bitmap bmp = null;
-    // Back Button
-    private Bitmap bmpBackButton = null;
-
-    // Facebook //
-    // Login Button
-    private Bitmap bmpLoginButton = null;
-
-    @Override
-    public String GetName() { return "Options"; }
-
-    @Override
-    public void OnEnter(SurfaceView _view)
-    {
-        // Options Background
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.option_background);
-        // Back Button
-        bmpBackButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.back);
-
-        // Display Metrics
-        DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
-        ScreenWidth = metrics.widthPixels;
-        ScreenHeight = metrics.heightPixels;
-    }
-
-    @Override
-    public void OnExit() { }
-
-    @Override
-    public void Update(float _dt)
-    {
-        float imgBack = bmpBackButton.getWidth() * 0.5f;
-
-        // Checking if there's any touch on any buttons
-        if(TouchManager.Instance.isDown())
-        {
-            // Back Button.
-            if(Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.03f, ScreenHeight * 0.05f, imgBack))
-            {
-                AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
-                StateManager.Instance.ChangeState("MainMenu");
-            }
-        }
-    }
-
-    @Override
-    public void Render(Canvas _canvas)
-    {
-        // Background
-        Matrix backgroundTransform = new Matrix();
-        backgroundTransform.setTranslate(ScreenWidth * -0.05f, ScreenHeight * -0.09f);
-        _canvas.drawBitmap(bmp, backgroundTransform, null);
-
-        // Back Button
-        Matrix buttonsTransform = new Matrix();
-        buttonsTransform.setTranslate(ScreenWidth * 0.f, ScreenHeight * 0.0f);
-        _canvas.drawBitmap(bmpBackButton, buttonsTransform, null);
-    }
-}
-*/

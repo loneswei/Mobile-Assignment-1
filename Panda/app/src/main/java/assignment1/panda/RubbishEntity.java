@@ -3,24 +3,29 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.SurfaceView;
 
 import java.util.Random;
 
+// This is done by Wong Shih Wei and Goh Liang Li.
 public class RubbishEntity implements EntityBase, Collidable
 {
-    private Bitmap bmp = null;
     private boolean isDone = false;
     private boolean isInit = false;
     private float xPos, yPos, xDir, yDir, lifeTime;
-    private String Type;
     private int selectedLevel;
     private int audioSFX_speechbubble = R.raw.speechbubblesound;
-    private int ScreenWidth, ScreenHeight;
-    private Bitmap scaledbmp = null;
     private int health;
+    private int ScreenWidth, ScreenHeight;
+    private String Type;
+
+    private Bitmap bmp = null;
+    private Bitmap scaledbmp = null;
+    private Vibrator vibrator;
 
 
     /*
@@ -54,13 +59,6 @@ public class RubbishEntity implements EntityBase, Collidable
             GameSystem.Instance.SetIsShowSprite(true);
             setIsDone(true);
             otherEntity.setIsDone(true);
-            GameSystem.Instance.currNumOfRubbish -= 1;
-            //Update score
-//            int currScore = GameSystem.Instance.GetIntFromSave("Score");
-//            ++currScore;
-//            GameSystem.Instance.SaveEditBegin();
-//            GameSystem.Instance.SetIntInSave("Score", currScore);
-//            GameSystem.Instance.SaveEditEnd();
         }
         else
         {
@@ -82,13 +80,14 @@ public class RubbishEntity implements EntityBase, Collidable
                     }
                 }
 
-                // Play warning audio here
+                startVibrate();
             }
 
             health = PlayerHealth.Instance.getHP();
             health -=1;
             PlayerHealth.Instance.setHP(health);
         }
+        GameSystem.Instance.currNumOfRubbish -= 1;
     }
 
     // EntityBase interface
@@ -116,6 +115,8 @@ public class RubbishEntity implements EntityBase, Collidable
     @Override
     public void Init(SurfaceView _view)
     {
+        vibrator = (Vibrator) _view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
+
         Random ranGen = new Random();
         selectedLevel = LevelManager.Instance.GetSelectedLevel();
         // Check for 4 different rubbish type and assign respective image to bmp
@@ -403,12 +404,26 @@ public class RubbishEntity implements EntityBase, Collidable
             health = PlayerHealth.Instance.getHP();
             health -=1;
             PlayerHealth.Instance.setHP(health);
-            // Play Warning Audio here
+            GameSystem.Instance.currNumOfRubbish -= 1;
+
+            startVibrate();
         }
     }
 
     @Override
     public void Render(Canvas _canvas) { _canvas.drawBitmap(scaledbmp, xPos - bmp.getWidth() * 0.5f, yPos - bmp.getHeight() * 0.5f, null); }
+
+    private void startVibrate()
+    {
+        // If API version is higher or equal to 26 then vibrate.
+        if(Build.VERSION.SDK_INT >= 26)
+            vibrator.vibrate(VibrationEffect.createOneShot(150,10));
+        else
+        {
+            long pattern[] = {0, 50, 0};
+            vibrator.vibrate(pattern, -1);
+        }
+    }
 
     public static RubbishEntity Create(String _Type)
     {

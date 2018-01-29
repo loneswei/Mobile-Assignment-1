@@ -4,16 +4,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.SurfaceHolder;
 
+// This is done by Wong Shih Wei
 public class UpdateThread extends Thread
 {
     static final long targetFPS = 60;
-    private GameView view = null;
     private SurfaceHolder holder = null;
     private boolean isRunning = false;
 
     public UpdateThread(GameView _view)
     {
-        view = _view;
         holder = _view.getHolder();
         AudioManager.Instance.Init(_view);
         StateManager.Instance.Init(_view);

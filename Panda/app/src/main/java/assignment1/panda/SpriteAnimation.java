@@ -4,9 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+// This is done by Wong Shih Wei
 public class SpriteAnimation
 {
-    private int row = 0;
     private int col = 0;
     private int width = 0;
     private int height = 0;
@@ -23,7 +23,6 @@ public class SpriteAnimation
     public SpriteAnimation(Bitmap _bmp, int _row, int _col, int _fps)
     {
         bmp = _bmp;
-        row = _row;
         col = _col;
 
         width = bmp.getWidth() / _col;
@@ -40,6 +39,7 @@ public class SpriteAnimation
         if(time > timePerFrame)
         {
             ++currentFrame;
+            // Reset the sprite animation frame when animation is done.
             if(currentFrame >= endFrame)
             {
                 GameSystem.Instance.SetIsShowSprite(false);

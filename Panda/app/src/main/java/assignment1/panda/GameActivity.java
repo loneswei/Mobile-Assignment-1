@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
+// This is done by Wong Shih Wei.
 public class GameActivity extends Activity
 {
     @Override
@@ -34,6 +35,7 @@ public class GameActivity extends Activity
         return true;
     }
 
+    // SwitchScreen() to OptionState(XML), but doesn't work for now.
     public void switchScreen()
     {
         EntityManager.Instance.getEntityList().clear();

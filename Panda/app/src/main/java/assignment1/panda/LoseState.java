@@ -1,6 +1,5 @@
 package assignment1.panda;
 
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,10 +9,11 @@ import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+// This is done by Goh Liang Li.
 public class LoseState implements StateBase
 {
-
     private int ScreenWidth, ScreenHeight;
+    private Bitmap scaledbmp = null;
 
     // Background
     private Bitmap bmp = null;
@@ -21,6 +21,7 @@ public class LoseState implements StateBase
     private Bitmap bmpBackButton = null;
     // Lose Message
     private String loseMessage = "You have lost!";
+
     @Override
     public String GetName() { return "Lose"; }
 
@@ -28,15 +29,16 @@ public class LoseState implements StateBase
     public void OnEnter(SurfaceView _view)
     {
         // Win & Lose Background
-        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.level_select);
+        bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.losewin_screen);
         // Back Button
-        // Need to change to a better image
         bmpBackButton = BitmapFactory.decodeResource(_view.getResources(), R.drawable.backbutton);
 
         // Display Metrics
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
+
+        scaledbmp = Bitmap.createScaledBitmap(bmp, ScreenWidth, ScreenHeight, true);
     }
 
     @Override
@@ -66,8 +68,7 @@ public class LoseState implements StateBase
         // Background
         Matrix backgroundTransform = new Matrix();
         backgroundTransform.setTranslate(ScreenWidth * -0.05f, ScreenHeight * -0.05f);
-        backgroundTransform.setScale(10 ,10);
-        _canvas.drawBitmap(bmp, backgroundTransform, null);
+        _canvas.drawBitmap(scaledbmp, backgroundTransform, null);
 
         // Back Button
         Matrix ButtonTransform = new Matrix();

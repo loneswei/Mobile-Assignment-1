@@ -3,11 +3,10 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+// This is done by Wong Shih Wei.
 public class GameBackground implements EntityBase
 {
     private Bitmap bmp = null;

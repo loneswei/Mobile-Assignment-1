@@ -1,5 +1,6 @@
 package assignment1.panda;
 
+// This is done by Wong Shih Wei.
 public class LevelManager
 {
     public final static LevelManager Instance = new LevelManager();

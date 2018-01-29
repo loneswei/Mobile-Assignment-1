@@ -2,6 +2,7 @@ package assignment1.panda;
 
 import android.view.MotionEvent;
 
+// This is done by Wong Shih Wei
 public class TouchManager
 {
     public final static TouchManager Instance = new TouchManager();

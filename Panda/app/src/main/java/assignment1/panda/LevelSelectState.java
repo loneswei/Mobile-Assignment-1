@@ -1,7 +1,5 @@
 package assignment1.panda;
 
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,9 +7,11 @@ import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+// This is done by Goh Liang Li.
 public class LevelSelectState implements StateBase
 {
     private int ScreenWidth, ScreenHeight;
+    private Bitmap scaledbmp = null;
 
     // Background
     private Bitmap bmp = null;
@@ -67,6 +67,8 @@ public class LevelSelectState implements StateBase
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
+
+        scaledbmp = Bitmap.createScaledBitmap(bmp, ScreenWidth, ScreenHeight,true);
     }
 
     @Override
@@ -164,9 +166,7 @@ public class LevelSelectState implements StateBase
     public void Render(Canvas _canvas)
     {
         // Background
-        Matrix backgroundTransform = new Matrix();
-        backgroundTransform.setTranslate(ScreenWidth * -0.05f, ScreenHeight * -0.04f);
-        _canvas.drawBitmap(bmp, backgroundTransform, null);
+        _canvas.drawBitmap(scaledbmp,0.0f,0.0f,null);
 
         // Level 1 Button
         Matrix buttonsTransform = new Matrix();

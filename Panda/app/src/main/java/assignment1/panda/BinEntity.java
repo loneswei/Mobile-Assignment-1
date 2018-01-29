@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+// This is done by Wong Shih Wei.
 public class BinEntity implements EntityBase, Collidable
 {
     private Bitmap bmp = null;
@@ -14,7 +15,6 @@ public class BinEntity implements EntityBase, Collidable
     private float xPos, yPos;
     private String Type;
     private int ScreenWidth, ScreenHeight;
-    private Bitmap scaledbmp = null;
 
     // Collidable interface
     @Override
@@ -26,6 +26,7 @@ public class BinEntity implements EntityBase, Collidable
     @Override
     public float getRadius() { return bmp.getHeight() * 0.5f; }
 
+    // To replace the old recycling bin with a new one.
     @Override
     public void onHit(Collidable _other)
     {
@@ -81,10 +82,12 @@ public class BinEntity implements EntityBase, Collidable
                 bmp = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
                 break;
         }
+
+        // Position the bins according to screen size.
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
-        scaledbmp = Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(),true);
+
         xPos = ScreenWidth * 0.5f;
         yPos = ScreenHeight * 0.925f;
 
@@ -95,7 +98,7 @@ public class BinEntity implements EntityBase, Collidable
     public void Update(float _dt) {}
 
     @Override
-    public void Render(Canvas _canvas) { _canvas.drawBitmap(scaledbmp,xPos - bmp.getWidth() * 0.5f,yPos - bmp.getHeight() * 0.5f,null); }
+    public void Render(Canvas _canvas) { _canvas.drawBitmap(bmp, xPos - bmp.getWidth() * 0.5f,yPos - bmp.getHeight() * 0.5f,null); }
 
     public static BinEntity Create(String _Type)
     {

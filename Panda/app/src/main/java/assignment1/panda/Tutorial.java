@@ -3,16 +3,13 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.os.Debug;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.SurfaceView;
 
+// This is done by Goh Liang LI.
 public class Tutorial
 {
     public final static Tutorial Instance = new Tutorial();
-
-    private SurfaceView view = null;
 
     // All rubbish tutorial bitmaps
     private Bitmap crumpledPaperTutorial = null;
@@ -79,8 +76,6 @@ public class Tutorial
 
     public void Init(SurfaceView _view)
     {
-        view = _view;
-
         // Tutorial image for each rubbish
         // Paper
         crumpledPaperTutorial = BitmapFactory.decodeResource(_view.getResources(), R.drawable.teachcrumpledpaper);
@@ -102,13 +97,14 @@ public class Tutorial
         eatenAppleTutorial = BitmapFactory.decodeResource(_view.getResources(), R.drawable.teacheatenapple);
         toothBrushTutorial = BitmapFactory.decodeResource(_view.getResources(), R.drawable.teachtoothbrush);
 
-        // Red Circle & Bins
+        // Red Circle & Bins & Arrow
         redCircle = BitmapFactory.decodeResource(_view.getResources(), R.drawable.red_circle);
         bmpPaperBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.blue_paper_recyclingbin);
         bmpPlasticBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.plastic_green_recyclingbin);
         bmpMetalBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.metal_red_recyclingbin);
         bmpOthersBin = BitmapFactory.decodeResource(_view.getResources(), R.drawable.generalwaste_greyrecyclingbin);
         redArrow = BitmapFactory.decodeResource(_view.getResources(), R.drawable.red_arrow);
+
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
@@ -232,6 +228,7 @@ public class Tutorial
         if(teachCrumpledPaper || teachNewsPaper || teachMilkCarton || teachPlasticBag || teachPlasticBottle || teachPlasticSprayBottle ||
                 teachMetalDrinkCan || teachMetalFoodCan || teachMetalSprayCan || teachBananaPeel || teachEatenApple || teachToothBrush)
             _canvas.drawBitmap(redCircle,ScreenWidth * 0.075f - redCircle.getWidth() * 0.5f, ScreenHeight * 0.55f - redCircle.getHeight() * 0.5f, null);
+
         // Paper
         if(teachCrumpledPaper || teachNewsPaper || teachMilkCarton)
         {

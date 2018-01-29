@@ -1,5 +1,6 @@
 package assignment1.panda;
 
+// This is done by Wong Shih Wei.
 public class LayerConstants
 {
     public final static int BACKGROUND_LAYER = 0;

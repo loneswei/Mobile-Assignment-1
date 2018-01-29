@@ -3,16 +3,12 @@ package assignment1.panda;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.os.Build;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 import java.util.Random;
 
+// This is done by Wong Shih Wei and Goh Liang Li.
 public class MainGameState implements StateBase
 {
     private float timer = 0.0f;
@@ -22,7 +18,6 @@ public class MainGameState implements StateBase
     private Bitmap bmpMetalBin = null;
     private Bitmap bmpOthersBin = null;
     private Bitmap bmpPause = null;
-    private Vibrator vibrator;
 
     private int selectedLevel = 0;
     private int numOfRubbish = 0;
@@ -68,8 +63,6 @@ public class MainGameState implements StateBase
             spawnDelay = 2.0f;
             maxNumOfRubbish = 20;
         }
-        vibrator = (Vibrator) _view.getContext().getSystemService(_view.getContext().VIBRATOR_SERVICE);
-        //AudioManager.Instance.PlayAudio(R.raw.background_music);
 
         /*
         This part is for creating a sprite for animation
@@ -81,21 +74,14 @@ public class MainGameState implements StateBase
         ScreenHeight = metrics.heightPixels;
     }
 
-    private void startVibrate()
-    {
-        if(Build.VERSION.SDK_INT >= 26)
-            vibrator.vibrate(VibrationEffect.createOneShot(150,10));
-        else
-        {
-            long pattern[] = {0, 50, 0};
-            vibrator.vibrate(pattern, -1);
-        }
-    }
+
     @Override
     public void OnExit()
     {
+        // Clear the EntityList, and reset variables
         EntityManager.Instance.getEntityList().clear();
         numOfRubbish = 0;
+        GameSystem.Instance.currNumOfRubbish = 0;
     }
 
     @Override
@@ -110,8 +96,9 @@ public class MainGameState implements StateBase
                 spr.Update(_dt);
             }
 
-            // Rubbish Creation
+            // Rubbish Creation at regular interval
             timer += _dt;
+            // Create rubbish until numOfRubbish reaches the Pre-Set limit.
             if (numOfRubbish <= maxNumOfRubbish && timer > spawnDelay)
             {
                 numOfRubbish += 1;
@@ -119,20 +106,21 @@ public class MainGameState implements StateBase
                 Random ranGen = new Random();
                 int rubbishType = 0;
 
+                // Spawn Rubbish Type according to selected level.
                 switch(selectedLevel)
                 {
                     // Tutorial
                     case 1:
-                        rubbishType = 1;
+                        rubbishType = 1;    // Paper
                         break;
                     case 3:
-                        rubbishType = 2;
+                        rubbishType = 2;    // Plastic
                         break;
                     case 5:
-                        rubbishType = 3;
+                        rubbishType = 3;    // Metal
                         break;
                     case 7:
-                        rubbishType = 4;
+                        rubbishType = 4;    // Others
                         break;
 
                     // Non - Tutorial
@@ -140,15 +128,17 @@ public class MainGameState implements StateBase
                         rubbishType = 1;
                         break;
                     case 4:
-                        rubbishType = ranGen.nextInt(2) + 1;
+                        rubbishType = ranGen.nextInt(2) + 1;    // Paper and Plastic
                         break;
                     case 6:
-                        rubbishType = ranGen.nextInt(3) + 1;
+                        rubbishType = ranGen.nextInt(3) + 1;    // Paper, Plastic and Metal
                         break;
                     case 8:
-                        rubbishType = ranGen.nextInt(4) + 1;
+                        rubbishType = ranGen.nextInt(4) + 1;    // Everything
                         break;
                 }
+
+                // Create rubbish based on its type
                 switch (rubbishType)
                 {
                     case 1:
@@ -166,13 +156,16 @@ public class MainGameState implements StateBase
                 }
                 timer = 0.0f;
             }
-            // When all rubbish are gone.
+
+            // Wnning Condition
+            // When finish recycling all the rubbbish
             if(PlayerHealth.Instance.getHP() > 0 && numOfRubbish != 0 && GameSystem.Instance.currNumOfRubbish <= 0)
             {
                 // Go to Win Screen
                 StateManager.Instance.ChangeState("Win");
             }
 
+            // Losing Condition
             // If Health is 0, go to Lose Screen
             if(PlayerHealth.Instance.getHP() <= 0)
             {
@@ -192,33 +185,25 @@ public class MainGameState implements StateBase
             {
                 if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.2f, ScreenHeight * 0.925f, imgRadius))
                 {
-                    // Create bin
                     BinEntity.Create("PaperBin");
-                    startVibrate();
 
                     AudioManager.Instance.PlayAudio(R.raw.paperbin);
                 }
                 else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.35f, ScreenHeight * 0.925f, imgRadius2))
                 {
-                    // Create bin
                     BinEntity.Create("PlasticBin");
-                    startVibrate();
 
                     AudioManager.Instance.PlayAudio(R.raw.plasticbin);
                 }
                 else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.65f, ScreenHeight * 0.925f, imgRadius3))
                 {
-                    // Create bin
                     BinEntity.Create("MetalBin");
-                    startVibrate();
 
                     AudioManager.Instance.PlayAudio(R.raw.metalbin);
                 }
                 else if (Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.8f, ScreenHeight * 0.925f, imgRadius4))
                 {
-                    // Create bin
                     BinEntity.Create("OthersBin");
-                    startVibrate();
 
                     AudioManager.Instance.PlayAudio(R.raw.generalwastebin);
                 }
@@ -243,8 +228,6 @@ public class MainGameState implements StateBase
                     Tutorial.Instance.Update();
                 if (!Tutorial.Instance.isTeaching && Collision.sphereToSphere(TouchManager.Instance.getPosX(), TouchManager.Instance.getPosY(), 0.0f, ScreenWidth * 0.025f, ScreenHeight * 0.04f, imgRadius5))
                 {
-                    //GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
-
                     if(PauseConfirmDialogFragment.IsShown)
                        return;
 
@@ -271,11 +254,5 @@ public class MainGameState implements StateBase
         */
         if(GameSystem.Instance.GetIsShowSprite())
             spr.Render(_canvas, (int)(ScreenWidth * 0.55f), (int)(ScreenHeight * 0.775f));
-
-        /*String scoreText = String.format("SCORE : %d", GameSystem.Instance.GetIntFromSave("Score"));
-        Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
-        paint.setTextSize(64);
-        _canvas.drawText(scoreText, 10, 220,paint); */
     }
 }
