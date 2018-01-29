@@ -54,7 +54,7 @@ public class LoseState implements StateBase
             {
                 AudioManager.Instance.PlayAudio(R.raw.outsidegameplaysfx);
                 // Go back to MainMenu
-                // StateManager.Instance.ChangeState("MainMenu");
+                StateManager.Instance.ChangeState("MainMenu");
             }
         }
     }

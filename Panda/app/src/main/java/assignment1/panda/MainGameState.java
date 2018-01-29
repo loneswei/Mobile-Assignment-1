@@ -55,6 +55,7 @@ public class MainGameState implements StateBase
         selectedLevel = LevelManager.Instance.GetSelectedLevel();
         spawnDelay = 4.0f;
         maxNumOfRubbish = 12;
+        GameSystem.Instance.currNumOfRubbish = 0;
 
         // Player Health
         PlayerHealth.Create("Heart3");
@@ -114,6 +115,7 @@ public class MainGameState implements StateBase
             if (numOfRubbish <= maxNumOfRubbish && timer > spawnDelay)
             {
                 numOfRubbish += 1;
+                GameSystem.Instance.currNumOfRubbish += 1;
                 Random ranGen = new Random();
                 int rubbishType = 0;
 
@@ -165,7 +167,7 @@ public class MainGameState implements StateBase
                 timer = 0.0f;
             }
             // When all rubbish are gone.
-            else if(PlayerHealth.Instance.getHP() > 0 && numOfRubbish == maxNumOfRubbish)
+            if(PlayerHealth.Instance.getHP() > 0 && numOfRubbish != 0 && GameSystem.Instance.currNumOfRubbish <= 0)
             {
                 // Go to Win Screen
                 StateManager.Instance.ChangeState("Win");
